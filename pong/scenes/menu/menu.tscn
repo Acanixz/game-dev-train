@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://bm7tgmhl8l85l"]
+
+[sub_resource type="SystemFont" id="SystemFont_gn3ub"]
+font_names = PackedStringArray("Arial Rounded MT")
+
+[sub_resource type="LabelSettings" id="LabelSettings_751nf"]
+font = SubResource("SystemFont_gn3ub")
+font_size = 20
+
+[sub_resource type="SystemFont" id="SystemFont_s4cst"]
+font_names = PackedStringArray("Arial Rounded MT")
+
+[sub_resource type="LabelSettings" id="LabelSettings_oqga6"]
+font = SubResource("SystemFont_s4cst")
+font_size = 128
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jxhm"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.5
+offset_top = -49.0
+offset_right = 64.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "2024
+Made by Acanixz"
+label_settings = SubResource("LabelSettings_751nf")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.416233
+anchor_right = 0.583767
+anchor_bottom = 0.115741
+offset_top = 80.0
+grow_horizontal = 2
+text = "PONG"
+label_settings = SubResource("LabelSettings_oqga6")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -15.5
+offset_right = 75.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5jxhm")
+text = "Play"
