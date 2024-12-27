@@ -8,7 +8,7 @@ var initial_position
 func _ready() -> void:
 	initial_position = global_position
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position.x = initial_position.x
 
 func _physics_process(delta: float) -> void:

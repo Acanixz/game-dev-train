@@ -1,12 +1,14 @@
 extends RigidBody2D
 
 @export var initialVelocity = Vector2(-350, 0)
+var triggered = false:
+	set(value):
+		if value == true:
+			self.linear_velocity = initialVelocity
+		triggered = value
 var speed_up_counter = 0
 
-func _ready() -> void:
-	self.linear_velocity = initialVelocity
-
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	speed_up_counter += 1
 	
 	if speed_up_counter > 120:
