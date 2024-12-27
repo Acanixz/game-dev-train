@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfaawp5q83xe6"]
+
+[ext_resource type="PackedScene" uid="uid://bth2kvmr5j2da" path="res://scenes/player/player.tscn" id="1_vf3dt"]
+[ext_resource type="PackedScene" uid="uid://b6h8tvdko46c2" path="res://scenes/ball/ball.tscn" id="2_kkanr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6klue"]
+distance = -325.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_oc763"]
+normal = Vector2(0, 1)
+distance = -325.0
+
+[node name="Level" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_vf3dt")]
+position = Vector2(-500, 0)
+player_id = 1
+
+[node name="Player2" parent="." instance=ExtResource("1_vf3dt")]
+position = Vector2(500, 0)
+rotation = 3.14159
+player_id = 2
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Upper" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_6klue")
+
+[node name="Lower" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_oc763")
+
+[node name="Ball" parent="." instance=ExtResource("2_kkanr")]
