@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfaawp5q83xe6"]
+[gd_scene load_steps=8 format=3 uid="uid://dfaawp5q83xe6"]
 
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_cvmjs"]
 [ext_resource type="PackedScene" uid="uid://bth2kvmr5j2da" path="res://scenes/player/player.tscn" id="1_vf3dt"]
 [ext_resource type="PackedScene" uid="uid://b6h8tvdko46c2" path="res://scenes/ball/ball.tscn" id="2_kkanr"]
+[ext_resource type="PackedScene" uid="uid://b8tq2k2fgxx2j" path="res://scenes/play_button/play_button.tscn" id="4_l7n5l"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6klue"]
 distance = -325.0
@@ -10,17 +12,21 @@ distance = -325.0
 normal = Vector2(0, 1)
 distance = -325.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_2uou4"]
+font_size = 32
+
 [node name="Level" type="Node2D"]
+script = ExtResource("1_cvmjs")
 
 [node name="Camera" type="Camera2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource("1_vf3dt")]
+[node name="Player 1" parent="." instance=ExtResource("1_vf3dt")]
 position = Vector2(-500, 0)
 player_id = 1
 
-[node name="Player2" parent="." instance=ExtResource("1_vf3dt")]
+[node name="Player 2" parent="." instance=ExtResource("1_vf3dt")]
 position = Vector2(500, 0)
-rotation = 3.14159
+scale = Vector2(-1, 1)
 player_id = 2
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
@@ -32,3 +38,50 @@ shape = SubResource("WorldBoundaryShape2D_6klue")
 shape = SubResource("WorldBoundaryShape2D_oc763")
 
 [node name="Ball" parent="." instance=ExtResource("2_kkanr")]
+can_sleep = false
+
+[node name="WinnerScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WinnerScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -28.5
+offset_right = 101.5
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+
+[node name="WinnerText" type="Label" parent="WinnerScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player1 wins!"
+label_settings = SubResource("LabelSettings_2uou4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton2" parent="WinnerScreen/VBoxContainer" instance=ExtResource("4_l7n5l")]
+layout_mode = 2
+text = "Play again"
+
+[connection signal="game_over" from="." to="." method="_on_game_over"]
