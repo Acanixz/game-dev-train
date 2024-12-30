@@ -13,7 +13,9 @@ platform_on_leave = 2
 script = ExtResource("1_w01bq")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
 texture = ExtResource("1_kxbvv")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_e128i")
