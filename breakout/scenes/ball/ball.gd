@@ -1,10 +1,10 @@
 extends RigidBody2D
 
-@export var speed = 500
+@export var speed = 350
 @export var initial_velocity = Vector2(0, speed)
 
 func _ready() -> void:
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(1).timeout
 	linear_velocity = initial_velocity
 	freeze = false
 

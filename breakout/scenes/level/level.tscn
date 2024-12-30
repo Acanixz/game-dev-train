@@ -20,15 +20,15 @@ position = Vector2(0, -300)
 [node name="Boundaries" type="StaticBody2D" parent="Camera"]
 
 [node name="Left" type="CollisionShape2D" parent="Camera/Boundaries"]
-position = Vector2(-575, 0)
+position = Vector2(-570, 0)
 shape = SubResource("WorldBoundaryShape2D_ogfjg")
 
 [node name="Right" type="CollisionShape2D" parent="Camera/Boundaries"]
-position = Vector2(575, 0)
+position = Vector2(570, 0)
 shape = SubResource("WorldBoundaryShape2D_f3cg5")
 
 [node name="Top" type="CollisionShape2D" parent="Camera/Boundaries"]
-position = Vector2(0, -325)
+position = Vector2(0, -320)
 shape = SubResource("WorldBoundaryShape2D_fe51s")
 
 [node name="Player" parent="." instance=ExtResource("1_cpgqi")]
