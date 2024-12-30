@@ -1,10 +1,10 @@
-![Rendering of a voxel character near the Godot Engine logo](bootup_BG.png)
-
 # Pong
 
 This is a recreation of Pong made in Godot Engine in about 3 days, the physics are unpredictable, but it works well enough for a release version.
 
 The player who scores 3 points first wins.
+
+![Image of the game](game.png)
 
 ## Controls
 
