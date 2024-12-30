@@ -11,3 +11,7 @@ func _ready() -> void:
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity = state.linear_velocity.normalized() * speed
 	state.linear_velocity = velocity
+
+func _on_body_entered(body: Node) -> void:
+	if body is Player:
+		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
