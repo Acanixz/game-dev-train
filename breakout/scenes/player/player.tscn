@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca440ttsisiop"]
+
+[ext_resource type="Texture2D" uid="uid://gxih3uyl04pm" path="res://assets/images/paddle.png" id="1_kxbvv"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_w01bq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e128i"]
+size = Vector2(50, 10)
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(3, 1)
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_w01bq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_kxbvv")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e128i")

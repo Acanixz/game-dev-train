@@ -1,3 +1,33 @@
-[gd_scene format=3 uid="uid://cqpkhvqer1g8o"]
+[gd_scene load_steps=5 format=3 uid="uid://cqpkhvqer1g8o"]
+
+[ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ogfjg"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f3cg5"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fe51s"]
+normal = Vector2(0, 1)
 
 [node name="level" type="Node2D"]
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-575, 0)
+shape = SubResource("WorldBoundaryShape2D_ogfjg")
+
+[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(575, 0)
+shape = SubResource("WorldBoundaryShape2D_f3cg5")
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(0, -325)
+shape = SubResource("WorldBoundaryShape2D_fe51s")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_cpgqi")]
+position = Vector2(0, 300)
