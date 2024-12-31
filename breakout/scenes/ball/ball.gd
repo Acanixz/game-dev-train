@@ -26,7 +26,6 @@ func _on_body_entered(body: Node) -> void:
 		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
 	
 	if body is TileMapLayer:
-		var tile_data = body.get_cell_tile_data(tile_position)
 		var tile_alt = body.get_cell_alternative_tile(tile_position)
 		var tile_atlas_coords = body.get_cell_atlas_coords(tile_position)
 		match tile_alt:
