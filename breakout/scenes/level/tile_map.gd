@@ -23,7 +23,7 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		1, 2:
 			if tile_alt == 1:
 				# TODO: Add powerups
-				%ScoreLabel.emit_signal("add_score", 40)
+				%ScoreLabel.add_score.emit(40)
 				pass
 			set_cell(tile_coords, 0, Vector2i(-1, -1))
 		
@@ -31,4 +31,4 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		_: 
 			set_cell(tile_coords, 0, tile_atlas_coords, tile_alt - 1)
 		
-	%ScoreLabel.emit_signal("add_score", 10)
+	%ScoreLabel.add_score.emit(10)

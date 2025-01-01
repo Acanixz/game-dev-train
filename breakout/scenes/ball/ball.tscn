@@ -11,10 +11,13 @@ bounce = 1.0
 size = Vector2(10, 10)
 
 [node name="Ball" type="RigidBody2D"]
+position = Vector2(0, -150)
 physics_material_override = SubResource("PhysicsMaterial_rdhhd")
+gravity_scale = 0.0
 can_sleep = false
 lock_rotation = true
 freeze = true
+custom_integrator = true
 contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("1_57r76")

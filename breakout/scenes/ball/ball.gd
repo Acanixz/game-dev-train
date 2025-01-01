@@ -26,4 +26,8 @@ func _on_body_entered(body: Node) -> void:
 		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
 	
 	if body is TileMapLayer:
-		%TileMap.emit_signal("tile_hit", tile_position)
+		get_node("../%TileMap").emit_signal("tile_hit", tile_position)
+	
+	if body.name == "DeathBounds":
+		get_node("../%LivesUI").remove_life.emit()
+		queue_free()

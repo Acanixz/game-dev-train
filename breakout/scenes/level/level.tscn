@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=4 uid="uid://cqpkhvqer1g8o"]
+[gd_scene load_steps=15 format=4 uid="uid://cqpkhvqer1g8o"]
 
 [ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
 [ext_resource type="PackedScene" uid="uid://cnpvvoq6gorhx" path="res://scenes/ball/ball.tscn" id="2_bhds8"]
 [ext_resource type="Texture2D" uid="uid://cr14teq2hge3v" path="res://assets/images/Brick.png" id="3_smxvu"]
 [ext_resource type="Script" path="res://scenes/level/tile_map.gd" id="4_7o68p"]
-[ext_resource type="Texture2D" uid="uid://d28teigl68241" path="res://assets/images/ball.png" id="5_tfvg8"]
 [ext_resource type="Script" path="res://scenes/level/score_label.gd" id="5_v3jbs"]
+[ext_resource type="Script" path="res://scenes/level/lives_ui.gd" id="6_r0tdn"]
+[ext_resource type="PackedScene" uid="uid://dkqbf0lp7ofcu" path="res://resources/life_icon.tscn" id="7_wcjav"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ogfjg"]
 normal = Vector2(1, 0)
@@ -15,6 +16,8 @@ normal = Vector2(-1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fe51s"]
 normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_67duk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m57qh"]
 texture = ExtResource("3_smxvu")
@@ -61,12 +64,15 @@ shape = SubResource("WorldBoundaryShape2D_f3cg5")
 position = Vector2(0, -320)
 shape = SubResource("WorldBoundaryShape2D_fe51s")
 
+[node name="DeathBounds" type="StaticBody2D" parent="Camera"]
+position = Vector2(0, 370)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Camera/DeathBounds"]
+shape = SubResource("WorldBoundaryShape2D_67duk")
+
 [node name="Player" parent="." instance=ExtResource("1_cpgqi")]
 
 [node name="Ball" parent="." instance=ExtResource("2_bhds8")]
-position = Vector2(0, -100)
-gravity_scale = 0.0
-custom_integrator = true
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 unique_name_in_owner = true
@@ -97,28 +103,26 @@ layout_mode = 2
 text = "Score: 0"
 script = ExtResource("5_v3jbs")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/Gameplay"]
+[node name="LivesUI" type="HBoxContainer" parent="UserInterface/Gameplay"]
+unique_name_in_owner = true
 layout_mode = 2
+script = ExtResource("6_r0tdn")
 
-[node name="LivesLabel" type="Label" parent="UserInterface/Gameplay/HBoxContainer"]
+[node name="LivesLabel" type="Label" parent="UserInterface/Gameplay/LivesUI"]
 layout_mode = 2
 text = "Lives"
 label_settings = SubResource("LabelSettings_3vbs2")
 
-[node name="TextureRect" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+[node name="LifeIcon" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
 layout_mode = 2
-texture = ExtResource("5_tfvg8")
-expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+[node name="LifeIcon2" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
 layout_mode = 2
-texture = ExtResource("5_tfvg8")
-expand_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+[node name="LifeIcon3" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
 layout_mode = 2
-texture = ExtResource("5_tfvg8")
-expand_mode = 3
 
 [connection signal="tile_hit" from="TileMap" to="TileMap" method="_on_tile_hit"]
 [connection signal="add_score" from="UserInterface/Gameplay/ScoreLabel" to="UserInterface/Gameplay/ScoreLabel" method="_on_add_score"]
+[connection signal="add_lives" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_add_lives"]
+[connection signal="remove_life" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_remove_life"]
