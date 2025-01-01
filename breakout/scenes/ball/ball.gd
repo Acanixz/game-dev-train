@@ -3,7 +3,12 @@ extends RigidBody2D
 @export var speed = 350
 @export var initial_velocity = Vector2(0, speed)
 var tile_position = Vector2.ZERO
-var fireball = false
+var fireball = false:
+	set(value):
+		fireball = value
+		const BALL_COLOR = [Color.WHITE, Color.RED]
+		$FireballParticle.emitting = value
+		$Sprite.modulate = BALL_COLOR[int(value)]
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout

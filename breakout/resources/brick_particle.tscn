@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctopdsll3rdr5"]
+
+[ext_resource type="Texture2D" uid="uid://symatsc7x6ef" path="res://assets/images/brick_break.png" id="1_b453g"]
+
+[sub_resource type="Curve" id="Curve_i8far"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0496183, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="GDScript" id="GDScript_856mq"]
+script/source = "extends CPUParticles2D
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="BrickParticle" type="CPUParticles2D"]
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.85
+texture = ExtResource("1_b453g")
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 500.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.25
+scale_amount_max = 1.25
+scale_amount_curve = SubResource("Curve_i8far")
+script = SubResource("GDScript_856mq")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

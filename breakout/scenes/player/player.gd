@@ -2,7 +2,10 @@ class_name Player
 extends CharacterBody2D
 
 @export var base_move_speed = 5
-var move_speed = 5
+var move_speed = 5:
+	set(value):
+		move_speed = value
+		$SpeedupParticle.emitting = move_speed > base_move_speed
 
 func _physics_process(delta: float) -> void:
 	var move = (
