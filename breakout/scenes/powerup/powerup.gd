@@ -6,7 +6,7 @@ const POWERUP_ICONS = {
 	1: "res://assets/images/fireball.png",
 	2: "res://assets/images/speedup.png",
 }
-var powerup_timer_scene = preload("res://scenes/powerup/timer/powerup_timer.tscn")
+const POWERUP_TIMER_SCENE = preload("res://scenes/powerup/timer/powerup_timer.tscn")
 
 @export var fall_speed: int = 90
 @export var powerup_id: int = 0
@@ -23,15 +23,15 @@ func _on_body_entered(body: Node2D) -> void:
 		queue_free()
 	
 	if body is Player:
-		var powerup_timer_instance: PowerupTimer = powerup_timer_scene.instantiate()
-		powerup_timer_instance.powerup_id = powerup_id
+		var powerup_timer: PowerupTimer = POWERUP_TIMER_SCENE.instantiate()
+		powerup_timer.powerup_id = powerup_id
 		
 		# Delete old timer for same powerup in order to extend duration
 		for child in body.get_children():
 			if child is PowerupTimer and child.powerup_id == powerup_id:
 				child.call_deferred("queue_free")
 				
-		body.call_deferred("add_child", powerup_timer_instance)
+		body.call_deferred("add_child", powerup_timer)
 
 		# Add effects
 		match powerup_id:

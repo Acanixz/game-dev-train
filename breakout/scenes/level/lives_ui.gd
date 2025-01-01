@@ -1,7 +1,7 @@
 extends HBoxContainer
 
-var res_life_icon = preload("res://resources/life_icon.tscn")
-var ball_scene = preload("res://scenes/ball/ball.tscn")
+const LIFE_ICON = preload("res://resources/life_icon.tscn")
+const BALL_SCENE = preload("res://scenes/ball/ball.tscn")
 
 const MAX_LIVES = 5
 var lives: int = 3
@@ -14,7 +14,7 @@ func _on_add_lives(increment: int = 1) -> void:
 		if lives >= MAX_LIVES: return
 		
 		lives += 1
-		call_deferred("add_child", res_life_icon.instantiate())
+		call_deferred("add_child", LIFE_ICON.instantiate())
 		await get_tree().create_timer(.25).timeout
 
 func _on_remove_life() -> void:
@@ -26,4 +26,4 @@ func _on_remove_life() -> void:
 		return
 	
 	await get_tree().create_timer(1).timeout
-	get_tree().root.get_node("Level").call_deferred("add_child", ball_scene.instantiate(), true)
+	get_tree().root.get_node("Level").call_deferred("add_child", BALL_SCENE.instantiate(), true)

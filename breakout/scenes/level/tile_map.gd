@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-var powerup_scene = preload("res://scenes/powerup/powerup.tscn")
+const POWERUP_SCENE = preload("res://scenes/powerup/powerup.tscn")
 
 signal tile_hit(coords: Vector2i)
 
@@ -24,7 +24,7 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		# Destroy
 		1, 2:
 			if tile_alt == 1:
-				var powerup = powerup_scene.instantiate()
+				var powerup = POWERUP_SCENE.instantiate()
 				if randi() % 4 == 3:
 					powerup.powerup_id = -1
 				else:
