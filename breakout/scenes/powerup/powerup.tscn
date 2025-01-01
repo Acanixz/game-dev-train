@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc3qhokauwevi"]
+
+[ext_resource type="Script" path="res://scenes/powerup/powerup.gd" id="1_pam71"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ir6oy"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5075"]
+size = Vector2(24, 24)
+
+[node name="Powerup" type="Area2D"]
+script = ExtResource("1_pam71")
+powerup_id = -1
+
+[node name="Sprite" type="Sprite2D" parent="."]
+z_index = -1
+texture = SubResource("PlaceholderTexture2D_ir6oy")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p5075")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

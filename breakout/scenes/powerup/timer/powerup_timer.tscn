@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmhu278fpfqw8"]
+
+[ext_resource type="Script" path="res://scenes/powerup/timer/powerup_timer.gd" id="1_g1k83"]
+
+[node name="PowerupTimer" type="Timer"]
+script = ExtResource("1_g1k83")
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]

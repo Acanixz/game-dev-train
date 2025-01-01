@@ -1,5 +1,7 @@
 extends TileMapLayer
 
+var powerup_scene = preload("res://scenes/powerup/powerup.tscn")
+
 signal tile_hit(coords: Vector2i)
 
 # Called when the node enters the scene tree for the first time.
@@ -22,9 +24,16 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		# Destroy
 		1, 2:
 			if tile_alt == 1:
-				# TODO: Add powerups
+				var powerup = powerup_scene.instantiate()
+				if randi() % 4 == 3:
+					powerup.powerup_id = -1
+				else:
+					powerup.powerup_id = randi() % 2 + 1
+				
+				powerup.position = map_to_local(tile_coords)
+				get_parent().call_deferred("add_child", powerup)
 				%ScoreLabel.add_score.emit(40)
-				pass
+			
 			set_cell(tile_coords, 0, Vector2i(-1, -1))
 		
 		# -1 HP

@@ -3,6 +3,7 @@ extends RigidBody2D
 @export var speed = 350
 @export var initial_velocity = Vector2(0, speed)
 var tile_position = Vector2.ZERO
+var fireball = false
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout
@@ -16,6 +17,8 @@ func _physics_process(delta: float) -> void:
 	var collider = collision_data.get_collider()
 	if collider is TileMapLayer:
 		tile_position = collider.local_to_map(collision_data.get_position() + (collision_data.get_travel() * -2))
+		if fireball:
+			get_node("../%TileMap").emit_signal("tile_hit", tile_position)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity = state.linear_velocity.normalized() * speed
@@ -25,7 +28,7 @@ func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
 	
-	if body is TileMapLayer:
+	if body is TileMapLayer and not fireball:
 		get_node("../%TileMap").emit_signal("tile_hit", tile_position)
 	
 	if body.name == "DeathBounds":
