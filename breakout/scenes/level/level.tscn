@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://cqpkhvqer1g8o"]
+[gd_scene load_steps=13 format=4 uid="uid://cqpkhvqer1g8o"]
 
 [ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
 [ext_resource type="PackedScene" uid="uid://cnpvvoq6gorhx" path="res://scenes/ball/ball.tscn" id="2_bhds8"]
 [ext_resource type="Texture2D" uid="uid://cr14teq2hge3v" path="res://assets/images/Brick.png" id="3_smxvu"]
 [ext_resource type="Script" path="res://scenes/level/tile_map.gd" id="4_7o68p"]
+[ext_resource type="Texture2D" uid="uid://d28teigl68241" path="res://assets/images/ball.png" id="5_tfvg8"]
+[ext_resource type="Script" path="res://scenes/level/score_label.gd" id="5_v3jbs"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ogfjg"]
 normal = Vector2(1, 0)
@@ -38,6 +40,8 @@ tile_size = Vector2i(45, 15)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_m57qh")
 
+[sub_resource type="LabelSettings" id="LabelSettings_3vbs2"]
+
 [node name="Level" type="Node2D"]
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -70,4 +74,51 @@ tile_map_data = PackedByteArray("AAD0//D/AAAAAAAAAAD1//D/AAAAAAAAAAD2//D/AAAAAAA
 tile_set = SubResource("TileSet_jy0sj")
 script = ExtResource("4_7o68p")
 
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -575.0
+offset_top = -623.0
+offset_right = -575.0
+offset_bottom = -623.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameplay" type="VBoxContainer" parent="UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/Gameplay"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score: 0"
+script = ExtResource("5_v3jbs")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/Gameplay"]
+layout_mode = 2
+
+[node name="LivesLabel" type="Label" parent="UserInterface/Gameplay/HBoxContainer"]
+layout_mode = 2
+text = "Lives"
+label_settings = SubResource("LabelSettings_3vbs2")
+
+[node name="TextureRect" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_tfvg8")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_tfvg8")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="UserInterface/Gameplay/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_tfvg8")
+expand_mode = 3
+
 [connection signal="tile_hit" from="TileMap" to="TileMap" method="_on_tile_hit"]
+[connection signal="add_score" from="UserInterface/Gameplay/ScoreLabel" to="UserInterface/Gameplay/ScoreLabel" method="_on_add_score"]
