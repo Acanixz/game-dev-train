@@ -26,20 +26,4 @@ func _on_body_entered(body: Node) -> void:
 		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
 	
 	if body is TileMapLayer:
-		var tile_alt = body.get_cell_alternative_tile(tile_position)
-		var tile_atlas_coords = body.get_cell_atlas_coords(tile_position)
-		match tile_alt:
-			# Unbreakable
-			0: pass
-			
-			# Destroy
-			1, 2:
-				if tile_alt == 1:
-					# TODO: Add powerups
-					pass
-				body.set_cell(tile_position, 0, Vector2i(-1, -1))
-			
-			# -1 HP
-			_: body.set_cell(tile_position, 0, tile_atlas_coords, tile_alt - 1)
-		
-		
+		%TileMap.emit_signal("tile_hit", tile_position)
