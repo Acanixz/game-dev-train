@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnpvvoq6gorhx"]
+[gd_scene load_steps=9 format=3 uid="uid://cnpvvoq6gorhx"]
 
 [ext_resource type="Script" path="res://scenes/ball/ball.gd" id="1_57r76"]
 [ext_resource type="Texture2D" uid="uid://d28teigl68241" path="res://assets/images/ball.png" id="1_heqo4"]
 [ext_resource type="Texture2D" uid="uid://4h6ctgw3h2ah" path="res://assets/images/Plus.png" id="3_4dybi"]
+[ext_resource type="AudioStream" uid="uid://hp5g81foqlx5" path="res://assets/sounds/bonk.wav" id="4_73osd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rdhhd"]
 friction = 0.0
@@ -49,5 +50,12 @@ angular_velocity_min = -255.0
 angular_velocity_max = 255.0
 scale_amount_curve = SubResource("Curve_1dw82")
 color_ramp = SubResource("Gradient_mo2lk")
+
+[node name="Bonk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_73osd")
+
+[node name="HeavyBonk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_73osd")
+pitch_scale = 0.85
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

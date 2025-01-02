@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3qhokauwevi"]
+[gd_scene load_steps=5 format=3 uid="uid://bc3qhokauwevi"]
 
 [ext_resource type="Script" path="res://scenes/powerup/powerup.gd" id="1_pam71"]
+[ext_resource type="AudioStream" uid="uid://demf0qfbujdwv" path="res://assets/sounds/powerup_collect.wav" id="2_gsliv"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ir6oy"]
 size = Vector2(24, 24)
@@ -18,5 +19,8 @@ texture = SubResource("PlaceholderTexture2D_ir6oy")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p5075")
+
+[node name="PowerupCollect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gsliv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

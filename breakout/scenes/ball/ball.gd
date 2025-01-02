@@ -32,6 +32,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
 		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
+		$Bonk.play()
 	
 	if body is TileMapLayer and not fireball:
 		get_node("../%TileMap").emit_signal("tile_hit", tile_position)
@@ -39,3 +40,6 @@ func _on_body_entered(body: Node) -> void:
 	if body.name == "DeathBounds":
 		get_node("../%LivesUI").remove_life.emit()
 		queue_free()
+	
+	if body.name == "Boundaries":
+		$HeavyBonk.play()

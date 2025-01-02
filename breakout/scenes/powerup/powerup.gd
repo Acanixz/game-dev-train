@@ -32,7 +32,9 @@ func _on_body_entered(body: Node2D) -> void:
 				child.call_deferred("queue_free")
 				
 		body.call_deferred("add_child", powerup_timer)
-
+		if powerup_id > 0:
+			$PowerupCollect.play()
+		
 		# Add effects
 		match powerup_id:
 			G.powerup.FIREBALL:
@@ -42,4 +44,7 @@ func _on_body_entered(body: Node2D) -> void:
 			G.powerup.SPEEDUP: 
 				body.move_speed = body.base_move_speed * 2
 		
+		$CollisionShape.call_deferred("set_disabled", true)
+		$Sprite.visible = false
+		await $PowerupCollect.finished
 		queue_free()

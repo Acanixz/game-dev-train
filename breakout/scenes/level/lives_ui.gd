@@ -21,6 +21,7 @@ func _on_remove_life() -> void:
 	if lives <= 0: return
 	lives -= 1
 	get_child(1).call_deferred("queue_free")
+	$Death.play()
 	if lives < 1:
 		print("Game over!")
 		return

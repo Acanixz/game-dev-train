@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cqpkhvqer1g8o"]
+[gd_scene load_steps=16 format=4 uid="uid://cqpkhvqer1g8o"]
 
 [ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
 [ext_resource type="PackedScene" uid="uid://cnpvvoq6gorhx" path="res://scenes/ball/ball.tscn" id="2_bhds8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/level/score_label.gd" id="5_v3jbs"]
 [ext_resource type="Script" path="res://scenes/level/lives_ui.gd" id="6_r0tdn"]
 [ext_resource type="PackedScene" uid="uid://dkqbf0lp7ofcu" path="res://resources/life_icon.tscn" id="7_wcjav"]
+[ext_resource type="AudioStream" uid="uid://dy71avi18kc35" path="res://assets/sounds/death.wav" id="8_nhj7t"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ogfjg"]
 normal = Vector2(1, 0)
@@ -121,6 +122,9 @@ layout_mode = 2
 
 [node name="LifeIcon3" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
 layout_mode = 2
+
+[node name="Death" type="AudioStreamPlayer" parent="UserInterface/Gameplay/LivesUI"]
+stream = ExtResource("8_nhj7t")
 
 [connection signal="tile_hit" from="TileMap" to="TileMap" method="_on_tile_hit"]
 [connection signal="add_score" from="UserInterface/Gameplay/ScoreLabel" to="UserInterface/Gameplay/ScoreLabel" method="_on_add_score"]

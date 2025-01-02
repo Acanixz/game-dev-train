@@ -2,6 +2,7 @@ extends TileMapLayer
 
 const POWERUP_SCENE = preload("res://scenes/powerup/powerup.tscn")
 const BRICK_PARTICLE = preload("res://resources/brick_particle.tscn")
+const BRICK_SOUND = preload("res://resources/brick_break.tscn")
 
 signal tile_hit(coords: Vector2i)
 
@@ -48,7 +49,7 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 				%ScoreLabel.add_score.emit(40)
 			
 			set_cell(tile_coords, 0, Vector2i(-1, -1))
-		
+			call_deferred("add_child", BRICK_SOUND.instantiate())
 		# -1 HP
 		_: 
 			set_cell(tile_coords, 0, tile_atlas_coords, tile_alt - 1)
