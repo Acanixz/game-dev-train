@@ -63,8 +63,8 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		if G.levels.size() >= level_id+1:
 			var level_completed_ui = get_node("../%LevelCompleted")
 			
-			level_completed_ui.get_node("Score").text = "Score: " + str(%ScoreLabel.score)
+			level_completed_ui.get_node("Score").text = "Score: " + str(get_node("../%ScoreLabel").score)
 			level_completed_ui.visible = true
 		else:
-			%GameOver.get_node("Score").text = "Final Score: %s" % str(%ScoreLabel.score)
+			%GameOver.get_node("Score").text = "Final Score: %s" % str(get_node("../%ScoreLabel").score)
 			%GameOver.visible = true

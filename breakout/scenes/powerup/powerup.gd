@@ -46,5 +46,6 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		$CollisionShape.call_deferred("set_disabled", true)
 		$Sprite.visible = false
-		await $PowerupCollect.finished
+		if $PowerupCollect.is_playing():
+			await $PowerupCollect.finished
 		queue_free()

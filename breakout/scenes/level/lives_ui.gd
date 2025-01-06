@@ -21,6 +21,10 @@ func _on_remove_life() -> void:
 	if lives <= 0: return
 	lives -= 1
 	get_child(1).call_deferred("queue_free")
+	for child in get_children():
+		if child is TextureRect:
+			child.call_deferred("queue_free")
+			break
 	$Death.play()
 	if lives < 1:
 		%GameOver.get_node("Score").text = "Final Score: %s" % str(%ScoreLabel.score)
