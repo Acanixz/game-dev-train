@@ -67,5 +67,6 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 			level_completed_ui.get_node("Score").text = "Score: " + str(get_node("../%ScoreLabel").score)
 			level_completed_ui.visible = true
 		else:
-			%GameOver.get_node("Score").text = "Final Score: %s" % str(get_node("../%ScoreLabel").score)
-			%GameOver.visible = true
+			var game_over_ui = get_node("../%GameOver")
+			game_over_ui.get_node("Score").text = "Final Score: %s" % str(get_node("../%ScoreLabel").score)
+			game_over_ui.visible = true
