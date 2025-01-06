@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnhfwwsh318f5"]
+[gd_scene load_steps=4 format=3 uid="uid://dnhfwwsh318f5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sat7b"]
 font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_cf25x"]
 
 [sub_resource type="GDScript" id="GDScript_7e7t6"]
 script/source = "extends Button
@@ -30,6 +32,24 @@ offset_bottom = 188.0
 grow_horizontal = 2
 text = "Breakout"
 label_settings = SubResource("LabelSettings_sat7b")
+
+[node name="Credits" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -142.5
+offset_top = -88.0
+offset_right = 142.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "2025
+Made by Acanixz"
+label_settings = SubResource("LabelSettings_cf25x")
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="PlayBtn" type="Button" parent="."]
 layout_mode = 1
