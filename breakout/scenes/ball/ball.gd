@@ -31,7 +31,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body is Player:
-		linear_velocity = linear_velocity + (body.position.direction_to(position) * 255)
+		linear_velocity = linear_velocity + (body.position.direction_to(position) * 192)
 		$Bonk.play()
 	
 	if body is TileMapLayer and not fireball:
