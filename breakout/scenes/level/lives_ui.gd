@@ -23,8 +23,9 @@ func _on_remove_life() -> void:
 	get_child(1).call_deferred("queue_free")
 	$Death.play()
 	if lives < 1:
-		print("Game over!")
+		%GameOver.get_node("Score").text = "Final Score: %s" % str(%ScoreLabel.score)
+		%GameOver.visible = true
 		return
 	
 	await get_tree().create_timer(1).timeout
-	get_tree().root.get_node("Level").call_deferred("add_child", BALL_SCENE.instantiate(), true)
+	G.get_level_node().call_deferred("add_child", BALL_SCENE.instantiate(), true)

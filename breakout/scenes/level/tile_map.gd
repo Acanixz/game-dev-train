@@ -4,17 +4,18 @@ const POWERUP_SCENE = preload("res://scenes/powerup/powerup.tscn")
 const BRICK_PARTICLE = preload("res://resources/brick_particle.tscn")
 const BRICK_SOUND = preload("res://resources/brick_break.tscn")
 
+@export var level_id = 0
+
 signal tile_hit(coords: Vector2i)
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+# Function to check if the level is clear
+func _is_level_clear() -> bool:
+	var used_cells = get_used_cells()
+	for cell in used_cells:
+		var alternative_tile_id = get_cell_alternative_tile(cell)
+		if alternative_tile_id != 0:  # Assuming ID 0 is the unbreakable brick
+			return false
+	return true
 
 func _on_tile_hit(tile_coords: Vector2i) -> void:
 	var world_coords = map_to_local(tile_coords)
@@ -46,7 +47,7 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 				
 				powerup.position = world_coords
 				get_parent().call_deferred("add_child", powerup)
-				%ScoreLabel.add_score.emit(40)
+				get_node("../%ScoreLabel").add_score.emit(40)
 			
 			set_cell(tile_coords, 0, Vector2i(-1, -1))
 			call_deferred("add_child", BRICK_SOUND.instantiate())
@@ -54,4 +55,16 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		_: 
 			set_cell(tile_coords, 0, tile_atlas_coords, tile_alt - 1)
 		
-	%ScoreLabel.add_score.emit(10)
+	get_node("../%ScoreLabel").add_score.emit(10)
+	
+	# Level Clear
+	if _is_level_clear():
+		get_node("../Ball").queue_free()
+		if G.levels.size() >= level_id+1:
+			var level_completed_ui = get_node("../%LevelCompleted")
+			
+			level_completed_ui.get_node("Score").text = "Score: " + str(%ScoreLabel.score)
+			level_completed_ui.visible = true
+		else:
+			%GameOver.get_node("Score").text = "Final Score: %s" % str(%ScoreLabel.score)
+			%GameOver.visible = true

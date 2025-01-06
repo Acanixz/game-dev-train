@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=4 uid="uid://cqpkhvqer1g8o"]
+[gd_scene load_steps=18 format=3 uid="uid://cqpkhvqer1g8o"]
 
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_335ig"]
 [ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
 [ext_resource type="PackedScene" uid="uid://cnpvvoq6gorhx" path="res://scenes/ball/ball.tscn" id="2_bhds8"]
-[ext_resource type="Texture2D" uid="uid://cr14teq2hge3v" path="res://assets/images/Brick.png" id="3_smxvu"]
-[ext_resource type="Script" path="res://scenes/level/tile_map.gd" id="4_7o68p"]
+[ext_resource type="PackedScene" uid="uid://gaxghiv3g4jo" path="res://scenes/level/tilemaps/1.tscn" id="4_n3xmn"]
 [ext_resource type="Script" path="res://scenes/level/score_label.gd" id="5_v3jbs"]
 [ext_resource type="Script" path="res://scenes/level/lives_ui.gd" id="6_r0tdn"]
 [ext_resource type="PackedScene" uid="uid://dkqbf0lp7ofcu" path="res://resources/life_icon.tscn" id="7_wcjav"]
@@ -20,33 +20,38 @@ normal = Vector2(0, 1)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_67duk"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m57qh"]
-texture = ExtResource("3_smxvu")
-texture_region_size = Vector2i(45, 15)
-0:0/next_alternative_id = 6
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
-0:0/1 = 1
-0:0/1/modulate = Color(0.795168, 0.774398, 3.85046e-07, 1)
-0:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
-0:0/2 = 2
-0:0/2/modulate = Color(0, 0.760784, 1, 1)
-0:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
-0:0/3 = 3
-0:0/3/modulate = Color(0.817731, 0.355066, 5.77569e-07, 1)
-0:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
-0:0/4 = 4
-0:0/4/modulate = Color(0.535503, 1.08896e-06, 2.88785e-07, 1)
-0:0/4/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
-
-[sub_resource type="TileSet" id="TileSet_jy0sj"]
-tile_size = Vector2i(45, 15)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_m57qh")
-
 [sub_resource type="LabelSettings" id="LabelSettings_3vbs2"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_sc2ub"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_ngsc3"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	var level_id = G.get_level_tilemap().level_id
+	G.get_level_node().change_level(level_id + 1)
+	# if level_id + 1 >= G.levels.size():
+	# get_tree().change_scene_to_file(G.GAME_SCENE if level_id + 1 >= G.levels.size() else G.levels[level_id + 1])
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_5okpr"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	get_tree().change_scene_to_file(G.GAME_SCENE)
+"
+
+[sub_resource type="GDScript" id="GDScript_fnwlp"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/menu/menu.tscn\")
+"
+
 [node name="Level" type="Node2D"]
+script = ExtResource("1_335ig")
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -300)
@@ -75,11 +80,8 @@ shape = SubResource("WorldBoundaryShape2D_67duk")
 
 [node name="Ball" parent="." instance=ExtResource("2_bhds8")]
 
-[node name="TileMap" type="TileMapLayer" parent="."]
-unique_name_in_owner = true
-tile_map_data = PackedByteArray("AAD9/+j/AAAAAAAAAgD9/+n/AAAAAAAAAgD9/+r/AAAAAAAAAgD9/+v/AAAAAAAAAgD+/+j/AAAAAAAAAgD+/+n/AAAAAAAAAgD+/+r/AAAAAAAAAgD+/+v/AAAAAAAAAgD//+j/AAAAAAAAAgD//+n/AAAAAAAAAgD//+r/AAAAAAAAAgD//+v/AAAAAAAAAgAAAOj/AAAAAAAAAgAAAOn/AAAAAAAAAgAAAOr/AAAAAAAAAgAAAOv/AAAAAAAAAgABAOj/AAAAAAAAAgABAOn/AAAAAAAAAgABAOr/AAAAAAAAAgABAOv/AAAAAAAAAgACAOj/AAAAAAAAAgACAOn/AAAAAAAAAgACAOr/AAAAAAAAAgACAOv/AAAAAAAAAgD//+3/AAAAAAAAAQAAAO3/AAAAAAAAAQA=")
-tile_set = SubResource("TileSet_jy0sj")
-script = ExtResource("4_7o68p")
+[node name="TileMap" parent="." instance=ExtResource("4_n3xmn")]
+unique_name_in_owner = false
 
 [node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
@@ -126,7 +128,78 @@ layout_mode = 2
 [node name="Death" type="AudioStreamPlayer" parent="UserInterface/Gameplay/LivesUI"]
 stream = ExtResource("8_nhj7t")
 
-[connection signal="tile_hit" from="TileMap" to="TileMap" method="_on_tile_hit"]
+[node name="LevelCompleted" type="VBoxContainer" parent="UserInterface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 467.0
+offset_top = 80.0
+offset_right = 683.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Level Cleared!"
+label_settings = SubResource("LabelSettings_sc2ub")
+
+[node name="Score" type="Label" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Score: "
+label_settings = SubResource("LabelSettings_sc2ub")
+horizontal_alignment = 1
+
+[node name="NextLevelBtn" type="Button" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Next Level"
+script = SubResource("GDScript_ngsc3")
+
+[node name="GameOver" type="VBoxContainer" parent="UserInterface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 483.0
+offset_top = 80.0
+offset_right = 667.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_sc2ub")
+
+[node name="Score" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Final Score: "
+label_settings = SubResource("LabelSettings_sc2ub")
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Play Again"
+script = SubResource("GDScript_5okpr")
+
+[node name="MenuBtn" type="Button" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Return to Menu"
+script = SubResource("GDScript_fnwlp")
+
 [connection signal="add_score" from="UserInterface/Gameplay/ScoreLabel" to="UserInterface/Gameplay/ScoreLabel" method="_on_add_score"]
 [connection signal="add_lives" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_add_lives"]
 [connection signal="remove_life" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_remove_life"]
+[connection signal="button_up" from="UserInterface/LevelCompleted/NextLevelBtn" to="UserInterface/LevelCompleted/NextLevelBtn" method="_on_button_up"]
+[connection signal="button_up" from="UserInterface/GameOver/RestartBtn" to="UserInterface/GameOver/RestartBtn" method="_on_button_up"]
+[connection signal="button_up" from="UserInterface/GameOver/MenuBtn" to="UserInterface/GameOver/MenuBtn" method="_on_button_up"]

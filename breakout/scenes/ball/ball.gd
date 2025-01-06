@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 	if collider is TileMapLayer:
 		tile_position = collider.local_to_map(collision_data.get_position() + (collision_data.get_travel() * -2))
 		if fireball:
-			get_node("../%TileMap").emit_signal("tile_hit", tile_position)
+			get_node("../TileMap").emit_signal("tile_hit", tile_position)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	var velocity = state.linear_velocity.normalized() * speed
@@ -35,7 +35,7 @@ func _on_body_entered(body: Node) -> void:
 		$Bonk.play()
 	
 	if body is TileMapLayer and not fireball:
-		get_node("../%TileMap").emit_signal("tile_hit", tile_position)
+		get_node("../TileMap").emit_signal("tile_hit", tile_position)
 	
 	if body.name == "DeathBounds":
 		get_node("../%LivesUI").remove_life.emit()

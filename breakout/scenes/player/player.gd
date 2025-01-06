@@ -7,7 +7,7 @@ var move_speed = 5:
 		move_speed = value
 		$SpeedupParticle.emitting = move_speed > base_move_speed
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var move = (
 			Input.get_vector("p1_left","p1_right","EMPTY","EMPTY") * 
 			move_speed * 

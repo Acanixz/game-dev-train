@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=4 uid="uid://dw42vvjlji21u"]
+
+[ext_resource type="Texture2D" uid="uid://cr14teq2hge3v" path="res://assets/images/Brick.png" id="1_rwh88"]
+[ext_resource type="Script" path="res://scenes/level/tile_map.gd" id="2_pm3yy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3lxdj"]
+texture = ExtResource("1_rwh88")
+texture_region_size = Vector2i(45, 15)
+0:0/next_alternative_id = 6
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
+0:0/1 = 1
+0:0/1/modulate = Color(0.795168, 0.774398, 3.85046e-07, 1)
+0:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
+0:0/2 = 2
+0:0/2/modulate = Color(0, 0.760784, 1, 1)
+0:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
+0:0/3 = 3
+0:0/3/modulate = Color(0.817731, 0.355066, 5.77569e-07, 1)
+0:0/3/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
+0:0/4 = 4
+0:0/4/modulate = Color(0.535503, 1.08896e-06, 2.88785e-07, 1)
+0:0/4/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -7.5, 22.5, -7.5, 22.5, 7.5, -22.5, 7.5)
+
+[sub_resource type="TileSet" id="TileSet_yb76r"]
+tile_size = Vector2i(45, 15)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_3lxdj")
+
+[node name="TileMap" type="TileMapLayer"]
+unique_name_in_owner = true
+tile_map_data = PackedByteArray("AAACAO7/AAAAAAAAAgABAO7/AAAAAAAAAgAAAO7/AAAAAAAAAgD//+7/AAAAAAAAAgD+/+7/AAAAAAAAAgD9/+7/AAAAAAAAAgD8/+7/AAAAAAAAAgADAO7/AAAAAAAAAgACAOv/AAAAAAAAAQD9/+v/AAAAAAAAAQACAOr/AAAAAAAAAwD9/+r/AAAAAAAAAwACAOz/AAAAAAAAAwD9/+z/AAAAAAAAAwADAO//AAAAAAAAAgACAO//AAAAAAAAAgABAO//AAAAAAAAAgAAAO//AAAAAAAAAgD//+//AAAAAAAAAgD+/+//AAAAAAAAAgD9/+//AAAAAAAAAgD8/+//AAAAAAAAAgAFAO3/AAAAAAAAAgAFAOz/AAAAAAAAAgAFAOv/AAAAAAAAAgAFAOr/AAAAAAAAAgAFAOn/AAAAAAAAAgAFAOj/AAAAAAAAAgAFAOf/AAAAAAAAAgAGAOf/AAAAAAAAAgAGAOj/AAAAAAAAAQAGAOn/AAAAAAAAAgAGAOr/AAAAAAAAAgAGAOv/AAAAAAAAAgAGAOz/AAAAAAAAAQAGAO3/AAAAAAAAAgD6/+3/AAAAAAAAAgD6/+z/AAAAAAAAAgD6/+v/AAAAAAAAAgD6/+r/AAAAAAAAAgD6/+n/AAAAAAAAAgD6/+j/AAAAAAAAAgD6/+f/AAAAAAAAAgD5/+f/AAAAAAAAAgD5/+j/AAAAAAAAAQD5/+n/AAAAAAAAAgD5/+r/AAAAAAAAAgD5/+v/AAAAAAAAAgD5/+z/AAAAAAAAAQD5/+3/AAAAAAAAAgA=")
+tile_set = SubResource("TileSet_yb76r")
+script = ExtResource("2_pm3yy")
+level_id = 3
+
+[connection signal="tile_hit" from="." to="." method="_on_tile_hit"]
