@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 	
 	var collider = collision_data.get_collider()
 	if collider is TileMapLayer:
-		tile_position = collider.local_to_map(collision_data.get_position() + (collision_data.get_travel() * -2))
+		tile_position = collider.local_to_map(collision_data.get_position() + (collision_data.get_travel() * -1))
 		if fireball:
 			get_node("../TileMap").emit_signal("tile_hit", tile_position)
 
