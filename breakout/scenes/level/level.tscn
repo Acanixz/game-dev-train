@@ -1,0 +1,206 @@
+[gd_scene load_steps=18 format=3 uid="uid://cqpkhvqer1g8o"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_335ig"]
+[ext_resource type="PackedScene" uid="uid://ca440ttsisiop" path="res://scenes/player/player.tscn" id="1_cpgqi"]
+[ext_resource type="PackedScene" uid="uid://cnpvvoq6gorhx" path="res://scenes/ball/ball.tscn" id="2_bhds8"]
+[ext_resource type="PackedScene" uid="uid://gaxghiv3g4jo" path="res://scenes/level/tilemaps/1.tscn" id="4_n3xmn"]
+[ext_resource type="Script" path="res://scenes/level/score_label.gd" id="5_v3jbs"]
+[ext_resource type="Script" path="res://scenes/level/lives_ui.gd" id="6_r0tdn"]
+[ext_resource type="PackedScene" uid="uid://dkqbf0lp7ofcu" path="res://resources/life_icon.tscn" id="7_wcjav"]
+[ext_resource type="AudioStream" uid="uid://dy71avi18kc35" path="res://assets/sounds/death.wav" id="8_nhj7t"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ogfjg"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f3cg5"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fe51s"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_67duk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3vbs2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sc2ub"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_ngsc3"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	var level_id = G.get_level_tilemap().level_id
+	G.get_level_node().change_level(level_id + 1)
+	# if level_id + 1 >= G.levels.size():
+	# get_tree().change_scene_to_file(G.GAME_SCENE if level_id + 1 >= G.levels.size() else G.levels[level_id + 1])
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_5okpr"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	get_tree().change_scene_to_file(G.GAME_SCENE)
+"
+
+[sub_resource type="GDScript" id="GDScript_fnwlp"]
+script/source = "extends Button
+
+func _on_button_up() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/menu/menu.tscn\")
+"
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_335ig")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, -300)
+
+[node name="Boundaries" type="StaticBody2D" parent="Camera"]
+
+[node name="Left" type="CollisionShape2D" parent="Camera/Boundaries"]
+position = Vector2(-570, 0)
+shape = SubResource("WorldBoundaryShape2D_ogfjg")
+
+[node name="Right" type="CollisionShape2D" parent="Camera/Boundaries"]
+position = Vector2(570, 0)
+shape = SubResource("WorldBoundaryShape2D_f3cg5")
+
+[node name="Top" type="CollisionShape2D" parent="Camera/Boundaries"]
+position = Vector2(0, -320)
+shape = SubResource("WorldBoundaryShape2D_fe51s")
+
+[node name="DeathBounds" type="StaticBody2D" parent="Camera"]
+position = Vector2(0, 370)
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Camera/DeathBounds"]
+shape = SubResource("WorldBoundaryShape2D_67duk")
+
+[node name="Player" parent="." instance=ExtResource("1_cpgqi")]
+
+[node name="Ball" parent="." instance=ExtResource("2_bhds8")]
+
+[node name="TileMap" parent="." instance=ExtResource("4_n3xmn")]
+unique_name_in_owner = false
+
+[node name="UserInterface" type="Control" parent="."]
+z_index = 50
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -575.0
+offset_top = -623.0
+offset_right = -575.0
+offset_bottom = -623.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameplay" type="VBoxContainer" parent="UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface/Gameplay"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Score: 0"
+script = ExtResource("5_v3jbs")
+
+[node name="LivesUI" type="HBoxContainer" parent="UserInterface/Gameplay"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("6_r0tdn")
+
+[node name="LivesLabel" type="Label" parent="UserInterface/Gameplay/LivesUI"]
+layout_mode = 2
+text = "Lives"
+label_settings = SubResource("LabelSettings_3vbs2")
+
+[node name="LifeIcon" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
+layout_mode = 2
+
+[node name="LifeIcon2" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
+layout_mode = 2
+
+[node name="LifeIcon3" parent="UserInterface/Gameplay/LivesUI" instance=ExtResource("7_wcjav")]
+layout_mode = 2
+
+[node name="Death" type="AudioStreamPlayer" parent="UserInterface/Gameplay/LivesUI"]
+stream = ExtResource("8_nhj7t")
+
+[node name="LevelCompleted" type="VBoxContainer" parent="UserInterface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 467.0
+offset_top = 80.0
+offset_right = 683.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Level Cleared!"
+label_settings = SubResource("LabelSettings_sc2ub")
+
+[node name="Score" type="Label" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Score: "
+label_settings = SubResource("LabelSettings_sc2ub")
+horizontal_alignment = 1
+
+[node name="NextLevelBtn" type="Button" parent="UserInterface/LevelCompleted"]
+layout_mode = 2
+text = "Next Level"
+script = SubResource("GDScript_ngsc3")
+
+[node name="GameOver" type="VBoxContainer" parent="UserInterface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 483.0
+offset_top = 80.0
+offset_right = 667.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_sc2ub")
+
+[node name="Score" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Final Score: "
+label_settings = SubResource("LabelSettings_sc2ub")
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Play Again"
+script = SubResource("GDScript_5okpr")
+
+[node name="MenuBtn" type="Button" parent="UserInterface/GameOver"]
+layout_mode = 2
+text = "Return to Menu"
+script = SubResource("GDScript_fnwlp")
+
+[connection signal="add_score" from="UserInterface/Gameplay/ScoreLabel" to="UserInterface/Gameplay/ScoreLabel" method="_on_add_score"]
+[connection signal="add_lives" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_add_lives"]
+[connection signal="remove_life" from="UserInterface/Gameplay/LivesUI" to="UserInterface/Gameplay/LivesUI" method="_on_remove_life"]
+[connection signal="button_up" from="UserInterface/LevelCompleted/NextLevelBtn" to="UserInterface/LevelCompleted/NextLevelBtn" method="_on_button_up"]
+[connection signal="button_up" from="UserInterface/GameOver/RestartBtn" to="UserInterface/GameOver/RestartBtn" method="_on_button_up"]
+[connection signal="button_up" from="UserInterface/GameOver/MenuBtn" to="UserInterface/GameOver/MenuBtn" method="_on_button_up"]

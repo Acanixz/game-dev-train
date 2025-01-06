@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca440ttsisiop"]
+
+[ext_resource type="Texture2D" uid="uid://gxih3uyl04pm" path="res://assets/images/paddle.png" id="1_kxbvv"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_w01bq"]
+[ext_resource type="Texture2D" uid="uid://4h6ctgw3h2ah" path="res://assets/images/Plus.png" id="3_6ee0y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e128i"]
+size = Vector2(50, 10)
+
+[sub_resource type="Curve" id="Curve_ahclv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0648855, 0.471698), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(3, 1)
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_w01bq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
+texture = ExtResource("1_kxbvv")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_e128i")
+
+[node name="SpeedupParticle" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 5)
+emitting = false
+amount = 32
+texture = ExtResource("3_6ee0y")
+emission_shape = 3
+emission_rect_extents = Vector2(25, 5)
+gravity = Vector2(0, 0)
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+scale_amount_curve = SubResource("Curve_ahclv")
+color = Color(1, 0.67451, 0, 1)

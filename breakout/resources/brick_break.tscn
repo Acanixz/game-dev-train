@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca0p1fca5gtt1"]
+
+[ext_resource type="AudioStream" uid="uid://ds6j2t00e3kqi" path="res://assets/sounds/brick_break.wav" id="1_b48o7"]
+
+[sub_resource type="GDScript" id="GDScript_bkax4"]
+script/source = "extends AudioStreamPlayer
+
+func _ready() -> void:
+	play()
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="BrickBreak" type="AudioStreamPlayer"]
+stream = ExtResource("1_b48o7")
+script = SubResource("GDScript_bkax4")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

@@ -15,7 +15,7 @@ config/version="1.0.0"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 boot_splash/image="res://bootup_BG.png"
-config/icon="res://icon.svg"
+config/icon="res://sprites/ball.png"
 boot_splash/minimum_display_time=2000
 
 [display]
