@@ -30,7 +30,9 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 		brick_particle.color = tile_data.modulate
 		brick_particle.emitting = true
 		brick_particle.position = world_coords
+		
 		call_deferred("add_child", brick_particle)
+		call_deferred("add_child", BRICK_SOUND.instantiate())
 	
 	match tile_alt:
 		# Unbreakable
@@ -50,7 +52,6 @@ func _on_tile_hit(tile_coords: Vector2i) -> void:
 				get_node("../%ScoreLabel").add_score.emit(40)
 			
 			set_cell(tile_coords, 0, Vector2i(-1, -1))
-			call_deferred("add_child", BRICK_SOUND.instantiate())
 		# -1 HP
 		_: 
 			set_cell(tile_coords, 0, tile_atlas_coords, tile_alt - 1)
