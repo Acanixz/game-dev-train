@@ -11,7 +11,7 @@ var fireball = false:
 		$Sprite.modulate = BALL_COLOR[int(value)]
 
 func _ready() -> void:
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1.5).timeout
 	linear_velocity = initial_velocity
 	freeze = false
 

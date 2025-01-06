@@ -20,7 +20,6 @@ func _on_add_lives(increment: int = 1) -> void:
 func _on_remove_life() -> void:
 	if lives <= 0: return
 	lives -= 1
-	get_child(1).call_deferred("queue_free")
 	for child in get_children():
 		if child is TextureRect:
 			child.call_deferred("queue_free")
@@ -33,3 +32,4 @@ func _on_remove_life() -> void:
 	
 	await get_tree().create_timer(1).timeout
 	G.get_level_node().call_deferred("add_child", BALL_SCENE.instantiate(), true)
+	G.get_level_node().get_node("Player").position.x = 0
