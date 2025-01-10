@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://blx15emmpfjjd"]
+
+[ext_resource type="Texture2D" uid="uid://b72jcr0i7ute7" path="res://assets/images/snake.png" id="1_aj5ei"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="2_b84bf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jcw32"]
+texture = ExtResource("1_aj5ei")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_114jb"]
+sources/0 = SubResource("TileSetAtlasSource_jcw32")
+
+[node name="Player" type="TileMapLayer"]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 96, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 254, 255, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_114jb")
+script = ExtResource("2_b84bf")
+
+[node name="Tick" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
