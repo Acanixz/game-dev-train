@@ -54,9 +54,9 @@ var tick_speed: float = .25:
 #]
 
 var snake_tiles: Array[Dictionary] = [
-	{'pos': Vector2i(-2,0), 'rot': Vector2i(0,0)},
-	{'pos': Vector2i(-1,0), 'rot': Vector2i(0,0)},
-	{'pos': Vector2i(0,0), 'rot': Vector2i(0,0)},
+	{'pos': Vector2i(-2,0), 'rot': Vector2i(1,0)},
+	{'pos': Vector2i(-1,0), 'rot': Vector2i(1,0)},
+	{'pos': Vector2i(0,0), 'rot': Vector2i(1,0)},
 ]
 ## Snake's head direction, defines where
 ## it will go in the next tick
