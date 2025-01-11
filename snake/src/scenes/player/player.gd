@@ -14,6 +14,32 @@ extends TileMapLayer
 		size = value
 		tick_speed = 1 - clamp(size * 0.15, .1, .75)
 
+## Each index of the CURVE_ROTATION_DATA
+## represents the curved sprite's indexes, 
+## each containing two possible triggers
+const CURVE_ROTATION_DATA = [
+	# Right -> Down or Up -> Left
+	[
+		[Vector2i(1, 0), Vector2i(0, 1)],
+		[Vector2i(0, -1), Vector2i(-1, 0)]
+	],
+	# Down -> Left or Left -> Up
+	[
+		[Vector2i(0, 1), Vector2i(-1, 0)],
+		[Vector2i(1, 0), Vector2i(0, -1)],
+	],
+	# Left -> Up or Down -> Right
+	[
+		[Vector2i(-1, 0), Vector2i(0, -1)],
+		[Vector2i(0, 1), Vector2i(1, 0)],
+	],
+	# Up -> Right or Left -> Down
+	[
+		[Vector2i(0, -1), Vector2i(1, 0)],
+		[Vector2i(-1, 0), Vector2i(0, 1)],
+	],
+]
+
 ## Interval in seconds in which the snake moves
 var tick_speed: float = .25:
 	set(value):
@@ -81,26 +107,12 @@ func _on_tick_timeout() -> void:
 		
 		match atlas_coords.y:
 			0:
-				# TODO: Find a better way to do this
-				if current_tile.rot == Vector2i(1, 0) and next_tile.rot == Vector2i(0, 1):
-					atlas_coords.x = 0
-				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(1, 0):
-					atlas_coords.x = 0
-				
-				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(-1, 0):
-					atlas_coords.x = 1
-				if current_tile.rot == Vector2i(1, 0) and next_tile.rot == Vector2i(0, -1):
-					atlas_coords.x = 1
-				
-				if current_tile.rot == Vector2i(-1, 0) and next_tile.rot == Vector2i(0, -1):
-					atlas_coords.x = 2
-				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(1, 0):
-					atlas_coords.x = 2
-				
-				if current_tile.rot == Vector2i(0, -1) and next_tile.rot == Vector2i(1, 0):
-					atlas_coords.x = 3
-				if current_tile.rot == Vector2i(-1, 0) and next_tile.rot == Vector2i(0, 1):
-					atlas_coords.x = 3
+				var index = 0
+				for target_coord in CURVE_ROTATION_DATA:
+					for target_coord_item in target_coord:
+						if current_tile.rot == target_coord_item[0] and next_tile.rot == target_coord_item[1]:
+							atlas_coords.x = index
+					index += 1
 			
 			1:
 				atlas_coords.x = abs(
