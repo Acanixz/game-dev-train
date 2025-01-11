@@ -63,12 +63,15 @@ func _on_tick_timeout() -> void:
 	set_cell(snake_tiles.pop_front().pos)
 	
 	for i in range(snake_tiles.size()):
+		var current_tile = snake_tiles[i]
+		var next_tile = snake_tiles[i+1] if i < snake_tiles.size()-1 else null
 		var atlas_coords = Vector2i(0,0)
+		
 		if i == 0:
 			atlas_coords.y = 1
 		else:
 			if i < snake_tiles.size()-1:
-				if snake_tiles[i].rot != snake_tiles[i+1].rot:
+				if current_tile.rot != next_tile.rot:
 					atlas_coords.y = 0
 				else:
 					atlas_coords.y = 2
@@ -76,9 +79,40 @@ func _on_tick_timeout() -> void:
 		if i == snake_tiles.size() - 1:
 			atlas_coords.y = 3
 		
-		atlas_coords.x = abs(
-			(snake_tiles[i].rot.x + snake_tiles[i].rot.y * 2 + 1)
-			 % 4
-			)
-		set_cell(snake_tiles[i].pos, 0, atlas_coords)
+		match atlas_coords.y:
+			0:
+				# TODO: Find a better way to do this
+				if current_tile.rot == Vector2i(1, 0) and next_tile.rot == Vector2i(0, 1):
+					atlas_coords.x = 0
+				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(1, 0):
+					atlas_coords.x = 0
+				
+				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(-1, 0):
+					atlas_coords.x = 1
+				if current_tile.rot == Vector2i(1, 0) and next_tile.rot == Vector2i(0, -1):
+					atlas_coords.x = 1
+				
+				if current_tile.rot == Vector2i(-1, 0) and next_tile.rot == Vector2i(0, -1):
+					atlas_coords.x = 2
+				if current_tile.rot == Vector2i(0, 1) and next_tile.rot == Vector2i(1, 0):
+					atlas_coords.x = 2
+				
+				if current_tile.rot == Vector2i(0, -1) and next_tile.rot == Vector2i(1, 0):
+					atlas_coords.x = 3
+				if current_tile.rot == Vector2i(-1, 0) and next_tile.rot == Vector2i(0, 1):
+					atlas_coords.x = 3
+			
+			1:
+				atlas_coords.x = abs(
+				(next_tile.rot.x + next_tile.rot.y * 2 + 1)
+				 % 4
+				)
+			
+			_:
+				atlas_coords.x = abs(
+				(current_tile.rot.x + current_tile.rot.y * 2 + 1)
+				 % 4
+				)
+		
+		set_cell(current_tile.pos, 0, atlas_coords)
 	
