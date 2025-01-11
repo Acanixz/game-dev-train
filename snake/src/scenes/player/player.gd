@@ -6,7 +6,7 @@ extends TileMapLayer
 
 @export_category("Snake Properties")
 ## Size of the snake
-@export var size = 3:
+@export var size: int = 3:
 	set(value):
 		# Snake must always have a head, body and tail
 		if size < 3: return
@@ -17,7 +17,7 @@ extends TileMapLayer
 ## Each index of the CURVE_ROTATION_DATA
 ## represents the curved sprite's indexes, 
 ## each containing two possible triggers
-const CURVE_ROTATION_DATA = [
+const CURVE_ROTATION_DATA: Array[Variant] = [
 	# Right -> Down or Up -> Left
 	[
 		[Vector2i(1, 0), Vector2i(0, 1)],
@@ -53,7 +53,7 @@ var tick_speed: float = .25:
 	#Vector2i(0,0),
 #]
 
-var snake_tiles = [
+var snake_tiles: Array[Dictionary] = [
 	{'pos': Vector2i(-2,0), 'rot': Vector2i(0,0)},
 	{'pos': Vector2i(-1,0), 'rot': Vector2i(0,0)},
 	{'pos': Vector2i(0,0), 'rot': Vector2i(0,0)},
@@ -89,9 +89,9 @@ func _on_tick_timeout() -> void:
 	set_cell(snake_tiles.pop_front().pos)
 	
 	for i in range(snake_tiles.size()):
-		var current_tile = snake_tiles[i]
+		var current_tile: Dictionary = snake_tiles[i]
 		var next_tile = snake_tiles[i+1] if i < snake_tiles.size()-1 else null
-		var atlas_coords = Vector2i(0,0)
+		var atlas_coords: Vector2i = Vector2i(0,0)
 		
 		if i == 0:
 			atlas_coords.y = 1
@@ -107,7 +107,7 @@ func _on_tick_timeout() -> void:
 		
 		match atlas_coords.y:
 			0:
-				var index = 0
+				var index: int = 0
 				for target_coord in CURVE_ROTATION_DATA:
 					for target_coord_item in target_coord:
 						if current_tile.rot == target_coord_item[0] and next_tile.rot == target_coord_item[1]:
