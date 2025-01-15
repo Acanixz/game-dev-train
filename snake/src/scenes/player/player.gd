@@ -58,6 +58,7 @@ var snake_tiles: Array[Dictionary] = [
 	{'pos': Vector2i(-1,0), 'rot': Vector2i(1,0)},
 	{'pos': Vector2i(0,0), 'rot': Vector2i(1,0)},
 ]
+
 ## Snake's head direction, defines where
 ## it will go in the next tick
 var snake_direction: Vector2i = Vector2i(1,0):
@@ -72,6 +73,9 @@ var snake_direction: Vector2i = Vector2i(1,0):
 		
 		snake_direction = value
 
+## Snake only processes a tick while alive
+var alive: bool = true
+
 func _process(_delta: float) -> void:
 	snake_direction = Input.get_vector("left", "right", "up", "down")
 
@@ -79,10 +83,14 @@ func _ready() -> void:
 	$Tick.start(tick_speed)
 
 func _on_tick_timeout() -> void:
+	if not alive: return
+	
 	snake_tiles.append({
 		'pos': snake_tiles[snake_tiles.size() - 1].pos + snake_direction,
 		'rot': snake_direction
 	})
+	
+	$Head.position = snake_tiles[snake_tiles.size()-1].pos * 16
 	
 	if snake_tiles.size() >= size:
 		set_cell(snake_tiles.pop_front().pos)

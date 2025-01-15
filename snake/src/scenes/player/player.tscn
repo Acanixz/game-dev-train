@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://blx15emmpfjjd"]
+[gd_scene load_steps=7 format=3 uid="uid://blx15emmpfjjd"]
 
 [ext_resource type="Texture2D" uid="uid://b72jcr0i7ute7" path="res://assets/images/snake.png" id="1_aj5ei"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_b84bf"]
@@ -25,6 +25,17 @@ texture = ExtResource("1_aj5ei")
 [sub_resource type="TileSet" id="TileSet_114jb"]
 sources/0 = SubResource("TileSetAtlasSource_jcw32")
 
+[sub_resource type="GDScript" id="GDScript_i22qw"]
+script/source = "extends Area2D
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.name == \"Boundaries\":
+		get_parent().alive = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1pse"]
+size = Vector2(15, 15)
+
 [node name="Player" type="TileMapLayer"]
 z_index = 10
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 255, 255, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 254, 255, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0)
@@ -34,4 +45,12 @@ script = ExtResource("2_b84bf")
 [node name="Tick" type="Timer" parent="."]
 autostart = true
 
+[node name="Head" type="Area2D" parent="."]
+script = SubResource("GDScript_i22qw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_q1pse")
+
 [connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
+[connection signal="body_entered" from="Head" to="Head" method="_on_body_entered"]
