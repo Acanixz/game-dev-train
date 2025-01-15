@@ -72,15 +72,13 @@ var snake_direction: Vector2i = Vector2i(1,0):
 		
 		snake_direction = value
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	snake_direction = Input.get_vector("left", "right", "up", "down")
 
 func _ready() -> void:
 	$Tick.start(tick_speed)
 
 func _on_tick_timeout() -> void:
-	# TODO: Implement snake sprite update
-	
 	snake_tiles.append({
 		'pos': snake_tiles[snake_tiles.size() - 1].pos + snake_direction,
 		'rot': snake_direction
