@@ -26,6 +26,7 @@ texture = ExtResource("1_aj5ei")
 sources/0 = SubResource("TileSetAtlasSource_jcw32")
 
 [node name="Player" type="TileMapLayer"]
+z_index = 10
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 3, 0, 0, 0, 255, 255, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 254, 255, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_114jb")
 script = ExtResource("2_b84bf")
