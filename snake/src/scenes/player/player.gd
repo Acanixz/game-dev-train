@@ -92,7 +92,7 @@ func _on_tick_timeout() -> void:
 	
 	$Head.position = snake_tiles[snake_tiles.size()-1].pos * 16
 	
-	if snake_tiles.size() >= size:
+	if snake_tiles.size() > size:
 		set_cell(snake_tiles.pop_front().pos)
 	
 	for i in range(snake_tiles.size()):
