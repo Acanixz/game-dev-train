@@ -42,6 +42,8 @@ func _on_body_entered(body: Node2D) -> void:
 		var item_pos = body.local_to_map(position)
 		snake.size += 1
 		body.set_cell(item_pos,0)
+		
+		print(G.get_level().get_available_cells().size())
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1pse"]
