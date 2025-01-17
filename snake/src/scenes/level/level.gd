@@ -27,3 +27,11 @@ func add_item(id: int = 0) -> void:
 	# Choose a random cell and set it to the item parameter
 	var selected_cell: Vector2i = available_cells[randi() % available_cells.size()]
 	$Items.set_cell(selected_cell, id, Vector2i(0,0))
+
+func _on_item_timer_timeout() -> void:
+	var completion_rate: float = get_completion_rate()
+	var max_items: float = 1 + (completion_rate * 20)
+	print(max_items)
+	
+	if $Items.get_used_cells().size() < max_items:
+		add_item()
