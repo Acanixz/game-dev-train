@@ -69,5 +69,4 @@ shape = SubResource("WorldBoundaryShape2D_3wagk")
 
 [node name="Items" type="TileMapLayer" parent="."]
 z_index = 9
-tile_map_data = PackedByteArray("AAAFAAEAAAAAAAAAAAAIAP3/AAAAAAAAAAABAPv/AAAAAAAAAAAKAAIAAAAAAAAAAAADAAAAAAAAAAAAAAAGAP//AAAAAAAAAAD9//3/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_nxek4")

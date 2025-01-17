@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b72jcr0i7ute7" path="res://assets/images/snake.png" id="1_aj5ei"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_b84bf"]
+[ext_resource type="Script" path="res://scenes/player/snake_head.gd" id="3_k7vju"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jcw32"]
 texture = ExtResource("1_aj5ei")
@@ -29,23 +30,6 @@ texture = ExtResource("1_aj5ei")
 [sub_resource type="TileSet" id="TileSet_114jb"]
 sources/0 = SubResource("TileSetAtlasSource_jcw32")
 
-[sub_resource type="GDScript" id="GDScript_i22qw"]
-script/source = "extends Area2D
-
-@onready var snake = get_parent()
-
-func _on_body_entered(body: Node2D) -> void:
-	if body.name == \"Boundaries\":
-		snake.alive = false
-		
-	if body.name == \"Items\":
-		var item_pos = body.local_to_map(position)
-		snake.size += 1
-		body.set_cell(item_pos,0)
-		
-		print(G.get_level().get_available_cells().size())
-"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1pse"]
 size = Vector2(15, 15)
 
@@ -59,7 +43,7 @@ script = ExtResource("2_b84bf")
 autostart = true
 
 [node name="Head" type="Area2D" parent="."]
-script = SubResource("GDScript_i22qw")
+script = ExtResource("3_k7vju")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
 position = Vector2(8, 8)
