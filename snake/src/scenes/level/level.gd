@@ -30,8 +30,7 @@ func add_item(id: int = 0) -> void:
 
 func _on_item_timer_timeout() -> void:
 	var completion_rate: float = get_completion_rate()
-	var max_items: float = 1 + (completion_rate * 20)
-	print(max_items)
+	var max_items: float = clamp(completion_rate * 20, 1, 5)
 	
 	if $Items.get_used_cells().size() < max_items:
 		add_item()
