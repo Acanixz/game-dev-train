@@ -1,2 +1,5 @@
 # Ignore build folders
 .build/
+
+# Ignore JetBrains IDE settings
+.idea/

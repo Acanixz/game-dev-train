@@ -1,0 +1,185 @@
+[gd_scene load_steps=6 format=3 uid="uid://dguuronqg3p3u"]
+
+[ext_resource type="AudioStream" uid="uid://csmpphdxjd2jq" path="res://assets/sounds/game_over.wav" id="1_0qvq7"]
+[ext_resource type="AudioStream" uid="uid://jcp5gh1vyss1" path="res://assets/sounds/win.wav" id="2_h1ql5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uu31s"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_b0nr0"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	G.load_scene(1)
+"
+
+[sub_resource type="GDScript" id="GDScript_5cqhb"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	G.load_scene(0)
+"
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -109.0
+offset_right = 109.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Title" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -80.0
+offset_right = 87.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game over"
+label_settings = SubResource("LabelSettings_uu31s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalSize" type="Label" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -40.0
+offset_right = 37.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score: %s"
+
+[node name="Options" type="VBoxContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 10.0
+offset_right = 65.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="StartBtn" type="Button" parent="GameOver/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_next = NodePath("../MenuBtn")
+focus_previous = NodePath("../MenuBtn")
+text = "Try again"
+script = SubResource("GDScript_b0nr0")
+
+[node name="MenuBtn" type="Button" parent="GameOver/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_next = NodePath("../StartBtn")
+focus_previous = NodePath("../StartBtn")
+text = "Back to menu"
+script = SubResource("GDScript_5cqhb")
+
+[node name="GameOver" type="AudioStreamPlayer" parent="GameOver"]
+stream = ExtResource("1_0qvq7")
+
+[node name="Win" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -109.0
+offset_right = 109.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Title" type="Label" parent="Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -49.0
+offset_right = 87.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You win!"
+label_settings = SubResource("LabelSettings_uu31s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="VBoxContainer" parent="Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 10.0
+offset_right = 65.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="StartBtn" type="Button" parent="Win/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_next = NodePath("../MenuBtn")
+focus_previous = NodePath("../MenuBtn")
+text = "Play again"
+script = SubResource("GDScript_b0nr0")
+
+[node name="MenuBtn" type="Button" parent="Win/Options"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_next = NodePath("../StartBtn")
+focus_previous = NodePath("../StartBtn")
+text = "Back to menu"
+script = SubResource("GDScript_5cqhb")
+
+[node name="Win" type="AudioStreamPlayer" parent="Win"]
+stream = ExtResource("2_h1ql5")
+
+[connection signal="pressed" from="GameOver/Options/StartBtn" to="GameOver/Options/StartBtn" method="_on_pressed"]
+[connection signal="pressed" from="GameOver/Options/MenuBtn" to="GameOver/Options/MenuBtn" method="_on_pressed"]
+[connection signal="pressed" from="Win/Options/StartBtn" to="Win/Options/StartBtn" method="_on_pressed"]
+[connection signal="pressed" from="Win/Options/MenuBtn" to="Win/Options/MenuBtn" method="_on_pressed"]

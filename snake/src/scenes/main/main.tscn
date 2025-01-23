@@ -1,0 +1,421 @@
+[gd_scene load_steps=15 format=3 uid="uid://iaxkv2st0hdh"]
+
+[ext_resource type="Texture2D" uid="uid://glprncvxpkmk" path="res://assets/images/title.png" id="1_ko7bj"]
+[ext_resource type="Texture2D" uid="uid://cl274bfwmakvf" path="res://assets/images/htp_controls.png" id="2_a1alb"]
+[ext_resource type="Texture2D" uid="uid://dnduxx7p0rblk" path="res://assets/images/htp_directions.png" id="3_0emgm"]
+[ext_resource type="Texture2D" uid="uid://dnnctw118akcs" path="res://assets/images/htp_self_collide.png" id="4_7txej"]
+[ext_resource type="Texture2D" uid="uid://cg7w3lf418fbk" path="res://assets/images/htp_borders.png" id="5_hs3jb"]
+[ext_resource type="Texture2D" uid="uid://hgrnxtqm5u8r" path="res://assets/images/apple.png" id="6_phslc"]
+
+[sub_resource type="GDScript" id="GDScript_3k8e5"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	G.load_scene(1)
+"
+
+[sub_resource type="GDScript" id="GDScript_hw1js"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	%Menu.visible = false
+	%HTP.visible = true
+"
+
+[sub_resource type="GDScript" id="GDScript_duo4m"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	%Menu.visible = false
+	%Credits.visible = true
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_64lsk"]
+font_size = 32
+
+[sub_resource type="GDScript" id="GDScript_skuf8"]
+resource_name = "returnBtn"
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	get_parent().visible = false
+	%Menu.visible = true
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_jpsow"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_17xun"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_q7h2s"]
+font_size = 8
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -711.5
+offset_right = 711.5
+offset_bottom = 355.0
+grow_horizontal = 2
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(711.5, 50)
+texture = ExtResource("1_ko7bj")
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = -5.0
+offset_right = 55.0
+offset_bottom = 145.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="StartBtn" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../CreditsBtn")
+focus_neighbor_bottom = NodePath("../HTPBtn")
+focus_next = NodePath("../HTPBtn")
+focus_previous = NodePath(".")
+text = "Start"
+script = SubResource("GDScript_3k8e5")
+
+[node name="HTPBtn" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../StartBtn")
+focus_neighbor_bottom = NodePath("../CreditsBtn")
+focus_next = NodePath("../CreditsBtn")
+focus_previous = NodePath("../StartBtn")
+text = "How to play
+"
+script = SubResource("GDScript_hw1js")
+
+[node name="CreditsBtn" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../HTPBtn")
+focus_neighbor_bottom = NodePath("../StartBtn")
+focus_next = NodePath("../StartBtn")
+focus_previous = NodePath("../HTPBtn")
+text = "Credits"
+script = SubResource("GDScript_duo4m")
+
+[node name="HTP" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="HTP"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -47.5
+offset_top = 15.0
+offset_right = 47.5
+offset_bottom = 36.0
+grow_horizontal = 2
+text = "How to play"
+label_settings = SubResource("LabelSettings_64lsk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnBtn" type="Button" parent="HTP"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.5
+offset_top = 70.0
+offset_right = 37.5
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "Return"
+script = SubResource("GDScript_skuf8")
+
+[node name="Left" type="Control" parent="HTP"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 120.0
+offset_right = 320.0
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="HTP/Left"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -123.5
+offset_right = 123.5
+offset_bottom = 21.0
+grow_horizontal = 2
+text = "Controls"
+label_settings = SubResource("LabelSettings_jpsow")
+horizontal_alignment = 1
+
+[node name="ControlsImg" type="TextureRect" parent="HTP/Left"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_a1alb")
+
+[node name="Objetive" type="Label" parent="HTP/Left"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -123.5
+offset_top = -21.0
+offset_right = 123.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "You must collect all apples without dying"
+label_settings = SubResource("LabelSettings_17xun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="Control" parent="HTP"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = 120.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="HTP/Right"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -123.5
+offset_right = 123.5
+offset_bottom = 21.0
+grow_horizontal = 2
+text = "Rules"
+label_settings = SubResource("LabelSettings_jpsow")
+horizontal_alignment = 1
+
+[node name="Rules" type="VBoxContainer" parent="HTP/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="1" type="Label" parent="HTP/Right/Rules"]
+layout_mode = 2
+text = "You cannot move backwards (180º)"
+label_settings = SubResource("LabelSettings_17xun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RuleImg" type="TextureRect" parent="HTP/Right/Rules/1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 8.5
+offset_right = 123.0
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+texture = ExtResource("3_0emgm")
+
+[node name="2_1" type="Label" parent="HTP/Right/Rules"]
+layout_mode = 2
+text = "The snake dies if it:
+Hits its own body"
+label_settings = SubResource("LabelSettings_17xun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RuleImg" type="TextureRect" parent="HTP/Right/Rules/2_1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = 22.5
+offset_right = 96.0
+offset_bottom = 125.25
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+texture = ExtResource("4_7txej")
+
+[node name="2_2" type="Label" parent="HTP/Right/Rules"]
+layout_mode = 2
+text = "Bumps into the level border"
+label_settings = SubResource("LabelSettings_17xun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RuleImg2" type="TextureRect" parent="HTP/Right/Rules/2_2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.0
+offset_top = 25.0
+offset_right = 241.0
+offset_bottom = 281.0
+grow_horizontal = 2
+scale = Vector2(0.15, 0.15)
+size_flags_horizontal = 4
+texture = ExtResource("5_hs3jb")
+
+[node name="Credits" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.5
+offset_top = 15.0
+offset_right = 94.5
+offset_bottom = 55.0
+grow_horizontal = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_64lsk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnBtn" type="Button" parent="Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -37.5
+offset_top = 70.0
+offset_right = 37.5
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "Return"
+script = SubResource("GDScript_skuf8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -166.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MainImg" type="TextureRect" parent="Credits/VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("6_phslc")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "This game was created as part of the
+ \"Recreating old games in Godot\" series
+Made by Acanixz"
+label_settings = SubResource("LabelSettings_q7h2s")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Credits/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="YoutubeLink" type="LinkButton" parent="Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Youtube"
+uri = "https://www.youtube.com/@Acanixz"
+
+[node name="GithubLink" type="LinkButton" parent="Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Github"
+uri = "https://github.com/Acanixz/game-dev-train"
+
+[node name="KofiLink" type="LinkButton" parent="Credits/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Ko-Fi"
+uri = "https://ko-fi.com/acanixz"
+
+[connection signal="pressed" from="Menu/VBoxContainer/StartBtn" to="Menu/VBoxContainer/StartBtn" method="_on_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/HTPBtn" to="Menu/VBoxContainer/HTPBtn" method="_on_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/CreditsBtn" to="Menu/VBoxContainer/CreditsBtn" method="_on_pressed"]
+[connection signal="pressed" from="HTP/ReturnBtn" to="HTP/ReturnBtn" method="_on_pressed"]
+[connection signal="pressed" from="Credits/ReturnBtn" to="Credits/ReturnBtn" method="_on_pressed"]
