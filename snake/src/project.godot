@@ -14,7 +14,10 @@ config/name="Snake"
 config/version="1.0.0"
 run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://bootup_BG.png"
 config/icon="res://icon.png"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
