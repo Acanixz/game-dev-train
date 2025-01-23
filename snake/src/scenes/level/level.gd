@@ -38,10 +38,13 @@ func _on_item_timer_timeout() -> void:
 func _on_player_died() -> void:
 	var game_over = $GameUI/GameOver
 	var score = game_over.get_node("FinalSize")
-
+	
 	score.text = "Score: %s" % str($Player.size)
+	game_over.get_node("GameOver").play()
 	game_over.visible = true
 	
 func _on_player_completed_level() -> void:
 	var win = $GameUI/Win
+
+	win.get_node("Win").play()
 	win.visible = true

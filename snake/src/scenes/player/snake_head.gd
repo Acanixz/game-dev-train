@@ -12,9 +12,11 @@ func _on_body_entered(body: Node2D) -> void:
 		var item_pos = body.local_to_map(position)
 		var level: Level = G.get_level()
 	
-		# Increment snake size and delete item
+		# Increment snake size, play sound and delete item
 		snake.size += 1
+		$Chomp.play()
 		body.set_cell(item_pos,0)
+		
 
 		# Add a new item and check for win conditon
 		level.add_item()

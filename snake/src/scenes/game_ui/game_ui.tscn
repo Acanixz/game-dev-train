@@ -1,4 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dguuronqg3p3u"]
+[gd_scene load_steps=6 format=3 uid="uid://dguuronqg3p3u"]
+
+[ext_resource type="AudioStream" uid="uid://csmpphdxjd2jq" path="res://assets/sounds/game_over.wav" id="1_0qvq7"]
+[ext_resource type="AudioStream" uid="uid://jcp5gh1vyss1" path="res://assets/sounds/win.wav" id="2_h1ql5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uu31s"]
 font_size = 32
@@ -105,6 +108,9 @@ focus_previous = NodePath("../StartBtn")
 text = "Back to menu"
 script = SubResource("GDScript_5cqhb")
 
+[node name="GameOver" type="AudioStreamPlayer" parent="GameOver"]
+stream = ExtResource("1_0qvq7")
+
 [node name="Win" type="ColorRect" parent="."]
 visible = false
 layout_mode = 1
@@ -169,6 +175,9 @@ focus_next = NodePath("../StartBtn")
 focus_previous = NodePath("../StartBtn")
 text = "Back to menu"
 script = SubResource("GDScript_5cqhb")
+
+[node name="Win" type="AudioStreamPlayer" parent="Win"]
+stream = ExtResource("2_h1ql5")
 
 [connection signal="pressed" from="GameOver/Options/StartBtn" to="GameOver/Options/StartBtn" method="_on_pressed"]
 [connection signal="pressed" from="GameOver/Options/MenuBtn" to="GameOver/Options/MenuBtn" method="_on_pressed"]

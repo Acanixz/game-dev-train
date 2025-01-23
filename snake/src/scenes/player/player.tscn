@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://blx15emmpfjjd"]
+[gd_scene load_steps=8 format=3 uid="uid://blx15emmpfjjd"]
 
 [ext_resource type="Texture2D" uid="uid://b72jcr0i7ute7" path="res://assets/images/snake.png" id="1_aj5ei"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="2_b84bf"]
 [ext_resource type="Script" path="res://scenes/player/snake_head.gd" id="3_k7vju"]
+[ext_resource type="AudioStream" uid="uid://f6ublhg6lnjl" path="res://assets/sounds/chomp.wav" id="4_pk8mo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jcw32"]
 texture = ExtResource("1_aj5ei")
@@ -48,6 +49,9 @@ script = ExtResource("3_k7vju")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_q1pse")
+
+[node name="Chomp" type="AudioStreamPlayer" parent="Head"]
+stream = ExtResource("4_pk8mo")
 
 [connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
 [connection signal="body_entered" from="Head" to="Head" method="_on_body_entered"]
