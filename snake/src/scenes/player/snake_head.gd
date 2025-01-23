@@ -19,5 +19,6 @@ func _on_body_entered(body: Node2D) -> void:
 		# Add a new item and check for win conditon
 		level.add_item()
 		if level.get_completion_rate() > 1:
+			snake.completed_level.emit()
 			snake.get_node("Tick").stop()
-			# TODO: Win Condition
+		

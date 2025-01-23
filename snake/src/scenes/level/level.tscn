@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://bym1vjewhr265"]
+[gd_scene load_steps=14 format=4 uid="uid://bym1vjewhr265"]
 
 [ext_resource type="PackedScene" uid="uid://blx15emmpfjjd" path="res://scenes/player/player.tscn" id="1_10n2r"]
 [ext_resource type="Texture2D" uid="uid://dm8r36r7owy4a" path="res://assets/images/grass.png" id="1_fq6ts"]
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="2_h1vt5"]
 [ext_resource type="Texture2D" uid="uid://hgrnxtqm5u8r" path="res://assets/images/apple.png" id="3_kb861"]
+[ext_resource type="PackedScene" uid="uid://dguuronqg3p3u" path="res://scenes/game_ui/game_ui.tscn" id="5_rmtmj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a7bu6"]
 texture = ExtResource("1_fq6ts")
@@ -20,19 +21,19 @@ texture = ExtResource("1_fq6ts")
 sources/0 = SubResource("TileSetAtlasSource_a7bu6")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2adhm"]
-distance = -180.0
+distance = -100.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6xr4m"]
 normal = Vector2(0, 1)
-distance = -180.0
+distance = -100.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qwli8"]
 normal = Vector2(1, 0)
-distance = -325.0
+distance = -150.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3wagk"]
 normal = Vector2(-1, 0)
-distance = -325.0
+distance = -150.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_whnmy"]
 texture = ExtResource("3_kb861")
@@ -55,7 +56,7 @@ autostart = true
 [node name="Player" parent="." instance=ExtResource("1_10n2r")]
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(1, 1.025)
+zoom = Vector2(2.225, 1.5)
 
 [node name="Boundaries" type="StaticBody2D" parent="."]
 
@@ -75,4 +76,9 @@ shape = SubResource("WorldBoundaryShape2D_3wagk")
 z_index = 9
 tile_set = SubResource("TileSet_nxek4")
 
+[node name="GameUI" parent="." instance=ExtResource("5_rmtmj")]
+z_index = 99
+
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
+[connection signal="completed_level" from="Player" to="." method="_on_player_completed_level"]
+[connection signal="died" from="Player" to="." method="_on_player_died"]

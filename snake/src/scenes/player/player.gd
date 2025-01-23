@@ -4,6 +4,12 @@ extends TileMapLayer
 ## The player is a tilemap responsible for controlling the snake's movement
 ## and functionality
 
+## Triggered when the snake dies by any means
+signal died
+
+## Triggered when the level is cleared
+signal completed_level
+
 @export_category("Snake Properties")
 ## Size of the snake
 @export var size: int = 3:
@@ -72,7 +78,11 @@ var snake_direction: Vector2i = Vector2i(1,0):
 		snake_direction = value
 
 ## Snake only processes a tick while alive
-var alive: bool = true
+var alive: bool = true:
+	set(value):
+		if value == false:
+			died.emit()
+		alive = value
 
 func _process(_delta: float) -> void:
 	# Feeds input vector directly to variable, check setter for requirements

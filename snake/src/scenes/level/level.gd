@@ -34,3 +34,14 @@ func _on_item_timer_timeout() -> void:
 	
 	if $Items.get_used_cells().size() < max_items:
 		add_item()
+
+func _on_player_died() -> void:
+	var game_over = $GameUI/GameOver
+	var score = game_over.get_node("FinalSize")
+
+	score.text = "Score: %s" % str($Player.size)
+	game_over.visible = true
+	
+func _on_player_completed_level() -> void:
+	var win = $GameUI/Win
+	win.visible = true
