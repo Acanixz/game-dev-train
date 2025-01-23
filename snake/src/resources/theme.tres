@@ -39,3 +39,4 @@ corner_radius_bottom_left = 5
 Button/styles/focus = SubResource("StyleBoxFlat_7ah22")
 Button/styles/hover = SubResource("StyleBoxFlat_nno6c")
 Button/styles/normal = SubResource("StyleBoxFlat_4x33q")
+LinkButton/colors/font_hover_color = Color(0, 0.792157, 0, 1)
