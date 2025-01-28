@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://l4c8q6yky8nw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_atnbj"]
+size = Vector2(640, 360)
+
+[node name="Level" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_atnbj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
