@@ -1,14 +1,17 @@
 class_name Player
 extends AnimatableBody2D
 
+const PLAYER_PROJECTILE: PackedScene = preload("res://scenes/projectile/final/player_projectile.tscn")
+
 signal died
 
 @export_category("Tank Properties")
 @export var base_move_speed: float = 2.5
-@export var weapon_cooldown: float = 1.5
+@export var weapon_cooldown: float = 1
 @export var lives: int = 3
 
 var move_speed: float = base_move_speed
+var is_weapon_cooldown: bool = false
 
 func _physics_process(_delta: float) -> void:
 	var move: Vector2 = (
@@ -21,9 +24,17 @@ func _physics_process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
-		print("pew")
-		# TODO: Implement shooting mechanic for player
 		get_viewport().set_input_as_handled()
+		if is_weapon_cooldown: return
+		
+		G.random_pitch_and_play($WeaponSound)
+		var projectile: PlayerProjectile = PLAYER_PROJECTILE.instantiate()
+		projectile.position = Vector2(position.x, position.y - 10)
+		get_node("/root/Level/Projectiles").call_deferred("add_child", projectile)
+		
+		is_weapon_cooldown = true
+		await get_tree().create_timer(weapon_cooldown).timeout
+		is_weapon_cooldown = false
 
 ## Death behavior
 func _on_died() -> void:
@@ -31,7 +42,7 @@ func _on_died() -> void:
 	
 	# Pause scene and change to dead sprite
 	$Sprite.animation = 'dead'
-	$DeathSound.play()
+	G.random_pitch_and_play($DeathSound)
 	get_tree().paused = true
 	
 	if lives > 0:

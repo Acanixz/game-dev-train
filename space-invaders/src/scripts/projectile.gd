@@ -23,6 +23,6 @@ func _on_area_entered(area:Area2D) -> void:
 		get_parent().call_deferred("add_child", effect)
 		
 		# Play sound, then self-delete when it's over
-		$ShotCollide.play()
+		G.random_pitch_and_play($ShotCollide)
 		await $ShotCollide.finished
 		queue_free()
