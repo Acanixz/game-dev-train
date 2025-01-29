@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cic2qinlwb3wo"]
+
+[ext_resource type="PackedScene" uid="uid://de5yac2pw5o6n" path="res://scenes/invader/invader.tscn" id="1_hbgxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bc12"]
+size = Vector2(16, 7)
+
+[node name="UFO" instance=ExtResource("1_hbgxy")]
+modulate = Color(1, 0, 0, 1)
+
+[node name="CollisionShape" parent="." index="1"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_1bc12")

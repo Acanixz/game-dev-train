@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=3 format=3 uid="uid://l4c8q6yky8nw"]
 
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
+[ext_resource type="PackedScene" uid="uid://bt6reddjqvw3y" path="res://scenes/invader/troop/troop.tscn" id="2_85u8v"]
 
 [node name="Level" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -150)
 
+[node name="Projectiles" type="Node2D" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("1_yceuj")]
 
-[node name="Projectiles" type="Node2D" parent="."]
+[node name="Troop" parent="." instance=ExtResource("2_85u8v")]
+position = Vector2(0, -128)

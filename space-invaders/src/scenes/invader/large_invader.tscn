@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bphgu51lu4uek"]
+
+[ext_resource type="PackedScene" uid="uid://de5yac2pw5o6n" path="res://scenes/invader/invader.tscn" id="1_8w5de"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyrtg"]
+size = Vector2(14, 7)
+
+[node name="LargeInvader" instance=ExtResource("1_8w5de")]
+
+[node name="Sprite" parent="." index="0"]
+animation = &"large"
+
+[node name="CollisionShape" parent="." index="1"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_lyrtg")
