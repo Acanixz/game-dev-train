@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://igsinc6nnx7k"]
+
+[ext_resource type="Texture2D" uid="uid://bw0epo47qpn28" path="res://assets/images/pop.png" id="1_l4uyn"]
+[ext_resource type="Script" path="res://scripts/temp_node.gd" id="2_ic3wb"]
+
+[node name="PopEffect" type="Sprite2D"]
+texture = ExtResource("1_l4uyn")
+script = ExtResource("2_ic3wb")
+timer = 0.2
