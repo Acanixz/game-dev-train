@@ -3,9 +3,23 @@ extends Area2D
 
 const POP_EFFECT: PackedScene = preload("res://scenes/effects/pop_effect.tscn")
 
+## Type of projectile, each one has a different explosion when hitting a barricade
+enum ProjectileType {
+	LASER,
+	ROCKET,
+	LIGHTNING,
+}
+
 @export_category("Projectile Properties")
+@export var projectile_type: ProjectileType
 @export var velocity: float = 100
 
+
+func _ready() -> void:
+	# Load animations for the expected type
+	const ANIMATIONS: Array[String] = ["laser", "rocket", "lightning"]
+	$Sprite.play(ANIMATIONS[projectile_type])
+	
 ## Projectile constantly moves vertically, relative to its rotation
 func _physics_process(delta: float) -> void:
 	var up_direction: Vector2 = Vector2(0, -1).rotated(rotation)
