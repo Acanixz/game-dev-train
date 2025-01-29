@@ -98,7 +98,7 @@ scale_amount_max = 3.0
 scale_amount_curve = SubResource("Curve_64411")
 color_ramp = SubResource("Gradient_s2gtq")
 
-[node name="Player-died" type="AudioStreamPlayer" parent="."]
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_lexyx")
 
