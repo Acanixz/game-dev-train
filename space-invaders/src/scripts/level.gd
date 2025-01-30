@@ -24,7 +24,7 @@ func _on_troop_moved_down() -> void:
 ## Spawns a new UFO
 func _on_ufo_timer_timeout() -> void:
 	var ufo: Invader = ufo_resource.instantiate()
-	ufo.global_position = Vector2($PlayerBounds/Left.shape.distance * ufo_direction, $Boundaries/Top.shape.distance + 60)
+	ufo.global_position = Vector2(-get_viewport_rect().size.x/2 * ufo_direction, (-get_viewport_rect().size.y * .95) + 60)
 	
 	## TODO: Scale UFO velocity with difficulty
 	ufo.velocity = ufo.BASE_VELOCITY + (10 * 0)

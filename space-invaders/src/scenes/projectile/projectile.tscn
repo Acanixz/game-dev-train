@@ -67,4 +67,8 @@ shape = SubResource("RectangleShape2D_arnec")
 [node name="ShotCollide" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_wl2nl")
 
+[node name="Visibility" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-2.5, -3, 5, 7)
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="Visibility" to="." method="_on_visibility_screen_exited"]

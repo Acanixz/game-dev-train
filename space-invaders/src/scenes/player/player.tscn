@@ -103,6 +103,7 @@ color_ramp = SubResource("Gradient_s2gtq")
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_lexyx")
+volume_db = -10.0
 
 [node name="WeaponSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_35lvc")

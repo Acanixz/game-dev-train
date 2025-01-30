@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 
 G="*res://global.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=640
