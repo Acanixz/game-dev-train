@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=8 format=3 uid="uid://l4c8q6yky8nw"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ryje5"]
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
@@ -10,6 +10,14 @@ distance = -10.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2bcem"]
 normal = Vector2(0, 1)
 distance = -350.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sgtm0"]
+normal = Vector2(1, 0)
+distance = -320.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mgxp1"]
+normal = Vector2(-1, 0)
+distance = -320.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_ryje5")
@@ -31,5 +39,15 @@ shape = SubResource("WorldBoundaryShape2D_xm3gh")
 
 [node name="Top" type="CollisionShape2D" parent="Boundaries"]
 shape = SubResource("WorldBoundaryShape2D_2bcem")
+
+[node name="PlayerBounds" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="PlayerBounds"]
+position = Vector2(0, -150)
+shape = SubResource("WorldBoundaryShape2D_sgtm0")
+
+[node name="Right" type="CollisionShape2D" parent="PlayerBounds"]
+position = Vector2(0, -150)
+shape = SubResource("WorldBoundaryShape2D_mgxp1")
 
 [connection signal="moved_down" from="Troop" to="." method="_on_troop_moved_down"]
