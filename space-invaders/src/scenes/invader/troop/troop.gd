@@ -11,8 +11,12 @@ const UFO: PackedScene = preload("res://scenes/invader/ufo.tscn")
 @export var spacing: Vector2 = Vector2(20, 32)
 
 var invaders: Array[Variant] = []
-var move_direction: Vector2 = Vector2(8,0)
-var bounds = []
+var move_direction: Vector2 = Vector2(8,0):
+	set(value):
+		previous_move_direction = move_direction
+		move_direction = value
+var previous_move_direction: Vector2 = move_direction
+var bounds: Array[float] = []
 
 func _ready() -> void:
 	# Set boundaries
@@ -37,13 +41,34 @@ func _ready() -> void:
 			call_deferred("add_child", invader)
 			invaders[column].append(invader)
 			
-func _on_tick_timeout():
+func _on_tick_timeout() -> void:
+	if get_completion_rate() == 1:
+		$Tick.stop()
+		$ShootTimer.stop()
+		return
 	var tick_sounds: Array[AudioStreamPlayer] = [$Tick1, $Tick2]
 	G.random_pitch_and_play(tick_sounds[randi() % 2])
 	
 	# TODO: Implement troop movement
-	# position += move_direction
-	# if move_direction.x 
+	for column in range(troop_size.x):
+		for row in range(troop_size.y):
+			if is_instance_valid(invaders[column][row]):
+				var invader: Invader = invaders[column][row]
+				var sprite: AnimatedSprite2D = invader.get_node("Sprite")
+				sprite.frame = 1 if sprite.frame == 0 else 0
+				invader.global_translate(move_direction)
+		
+	if (move_direction.x > 0 and get_corner_position(true) >= bounds[1]) or (move_direction.x < 0 and get_corner_position(false) <= bounds[0]):
+		move_direction = Vector2(0, spacing.y)
+		return
+		
+	if (move_direction.y > 0):
+		move_direction = previous_move_direction * -1
+		return
+
+func _on_shoot_timer_timeout() -> void:
+	if get_completion_rate() == 1: return
+	choose_and_shoot()
 	
 ## Returns all columns that have at least one alien alive
 func get_alive_columns() -> Array[int]:
@@ -84,4 +109,15 @@ func get_completion_rate() -> float:
 			if is_instance_valid(invaders[column][row]):
 				alive_aliens += 1
 	
-	return 1.0 * (total_aliens - alive_aliens)/total_aliens if alive_aliens > 0 else 1
+	return 1.0 * (total_aliens - alive_aliens)/total_aliens if alive_aliens > 0 else 1.0
+	
+## Chooses one of the alive columns and then requests to shoot
+func choose_and_shoot() -> void:
+	var alive_columns: Array[int] = get_alive_columns()
+	if alive_columns.size() == 0: return
+	
+	var selected_index: int = randi() % alive_columns.size()
+	var bottom_alien: Invader = get_last_alien(alive_columns[selected_index])
+	
+	if not is_instance_valid(bottom_alien): return
+	bottom_alien.shoot()
