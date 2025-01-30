@@ -46,7 +46,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"UFO",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -88,6 +88,8 @@ script = ExtResource("1_7afo3")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7w3fa")
 animation = &"UFO"
+frame = 1
+frame_progress = 0.814975
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 

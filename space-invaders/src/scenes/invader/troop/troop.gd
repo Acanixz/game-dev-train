@@ -4,7 +4,7 @@ extends Node2D
 const SMALL_INVADER: PackedScene = preload("res://scenes/invader/small_invader.tscn")
 const MEDIUM_INVADER: PackedScene = preload("res://scenes/invader/medium_invader.tscn")
 const LARGE_INVADER: PackedScene = preload("res://scenes/invader/large_invader.tscn")
-const UFO: PackedScene = preload("res://scenes/invader/ufo.tscn")
+
 
 signal moved_down
 signal invader_died
