@@ -12,6 +12,9 @@ func shoot():
 	get_node("/root/Level/Projectiles").call_deferred("add_child", projectile)
 	
 func _on_died():
+	var parent: Node = get_parent()
+	if parent is Troop:
+		parent.invader_died.emit()
 	var effect: Node = POP_EFFECT.instantiate()
 	effect.position = position
 	get_parent().call_deferred("add_child", effect)

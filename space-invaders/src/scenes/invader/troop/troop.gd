@@ -7,6 +7,7 @@ const LARGE_INVADER: PackedScene = preload("res://scenes/invader/large_invader.t
 const UFO: PackedScene = preload("res://scenes/invader/ufo.tscn")
 
 signal moved_down
+signal invader_died
 
 @export_category("Troop Properties")
 @export var troop_size: Vector2i = Vector2i(11, 5)
@@ -89,6 +90,10 @@ func get_alive_columns() -> Array[int]:
 				result.append(column)
 				break
 	return result
+	
+## Difficulty scaling
+func _on_invader_died() -> void:
+	$Tick.wait_time = 1 - (.95 * get_completion_rate())
 	
 ## Returns the X position of the selected corner
 func get_corner_position(direction: bool):
