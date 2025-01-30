@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=6 format=3 uid="uid://l4c8q6yky8nw"]
 
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_ryje5"]
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
 [ext_resource type="PackedScene" uid="uid://bt6reddjqvw3y" path="res://scenes/invader/troop/troop.tscn" id="2_85u8v"]
 
@@ -11,6 +12,7 @@ normal = Vector2(0, 1)
 distance = -350.0
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_ryje5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -150)
@@ -29,3 +31,5 @@ shape = SubResource("WorldBoundaryShape2D_xm3gh")
 
 [node name="Top" type="CollisionShape2D" parent="Boundaries"]
 shape = SubResource("WorldBoundaryShape2D_2bcem")
+
+[connection signal="moved_down" from="Troop" to="." method="_on_troop_moved_down"]

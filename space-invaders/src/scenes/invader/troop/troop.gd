@@ -6,6 +6,8 @@ const MEDIUM_INVADER: PackedScene = preload("res://scenes/invader/medium_invader
 const LARGE_INVADER: PackedScene = preload("res://scenes/invader/large_invader.tscn")
 const UFO: PackedScene = preload("res://scenes/invader/ufo.tscn")
 
+signal moved_down
+
 @export_category("Troop Properties")
 @export var troop_size: Vector2i = Vector2i(11, 5)
 @export var spacing: Vector2 = Vector2(20, 32)
@@ -69,6 +71,7 @@ func _on_tick_timeout() -> void:
 	
 	# Move in opposite horizontal direction if moving down
 	if (move_direction.y > 0):
+		moved_down.emit()
 		move_direction = previous_move_direction * -1
 		return
 
@@ -100,6 +103,20 @@ func get_corner_position(direction: bool):
 			return invaders[target_index][row].position.x
 	return 0
 	
+## Returns the Y pos of the bottommost alien
+func get_bottom_position() -> float:
+	var result: float = -1000
+	var alive_columns: Array[int] = get_alive_columns()
+	
+	# Check only alive columns
+	for column in alive_columns:
+		for row in range(troop_size.y):
+			if is_instance_valid(invaders[column][row]):
+				# Get the alien position closest to 0 (considering troop is at negative Y and going up)
+				var invader: Invader = invaders[column][row]
+				result = invader.global_position.y if invader.global_position.y > result else result
+	return result
+				
 ## Returns the instance of the bottommost alien
 func get_last_alien(column: int) -> Invader:
 	for row in range(troop_size.y):
