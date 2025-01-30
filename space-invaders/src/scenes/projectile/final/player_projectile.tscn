@@ -6,7 +6,6 @@
 [node name="PlayerProjectile" instance=ExtResource("1_vpnky")]
 modulate = Color(0, 1, 0, 1)
 script = ExtResource("2_lufgo")
-projectile_type = null
-velocity = null
+velocity = 250.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
