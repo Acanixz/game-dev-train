@@ -41,15 +41,19 @@ func _ready() -> void:
 			call_deferred("add_child", invader)
 			invaders[column].append(invader)
 			
+## Move tick
 func _on_tick_timeout() -> void:
+	# Stop all timers if troop is dead
 	if get_completion_rate() == 1:
 		$Tick.stop()
 		$ShootTimer.stop()
 		return
+		
+	# Play random tick sound
 	var tick_sounds: Array[AudioStreamPlayer] = [$Tick1, $Tick2]
 	G.random_pitch_and_play(tick_sounds[randi() % 2])
 	
-	# TODO: Implement troop movement
+	# Move all troops individually and animate them
 	for column in range(troop_size.x):
 		for row in range(troop_size.y):
 			if is_instance_valid(invaders[column][row]):
@@ -58,14 +62,17 @@ func _on_tick_timeout() -> void:
 				sprite.frame = 1 if sprite.frame == 0 else 0
 				invader.global_translate(move_direction)
 		
+	# Move down if reached horizontal boundaries
 	if (move_direction.x > 0 and get_corner_position(true) >= bounds[1]) or (move_direction.x < 0 and get_corner_position(false) <= bounds[0]):
 		move_direction = Vector2(0, spacing.y)
 		return
-		
+	
+	# Move in opposite horizontal direction if moving down
 	if (move_direction.y > 0):
 		move_direction = previous_move_direction * -1
 		return
 
+## Shoot tick
 func _on_shoot_timer_timeout() -> void:
 	if get_completion_rate() == 1: return
 	choose_and_shoot()
