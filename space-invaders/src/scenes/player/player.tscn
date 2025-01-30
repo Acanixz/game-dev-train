@@ -58,6 +58,7 @@ script = ExtResource("1_7vlyv")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 process_mode = 3
+modulate = Color(0, 1, 0, 1)
 sprite_frames = SubResource("SpriteFrames_ray0t")
 animation = &"alive"
 
