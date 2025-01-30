@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=5 format=3 uid="uid://l4c8q6yky8nw"]
 
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
 [ext_resource type="PackedScene" uid="uid://bt6reddjqvw3y" path="res://scenes/invader/troop/troop.tscn" id="2_85u8v"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xm3gh"]
+distance = -10.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_2bcem"]
+normal = Vector2(0, 1)
+distance = -350.0
 
 [node name="Level" type="Node2D"]
 
@@ -14,3 +21,11 @@ position = Vector2(0, -150)
 
 [node name="Troop" parent="." instance=ExtResource("2_85u8v")]
 position = Vector2(0, -128)
+
+[node name="Boundaries" type="Area2D" parent="."]
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_xm3gh")
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_2bcem")
