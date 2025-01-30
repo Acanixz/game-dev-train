@@ -40,6 +40,8 @@ func _on_area_entered(area:Area2D) -> void:
 		G.random_pitch_and_play($ShotCollide)
 		await $ShotCollide.finished
 		queue_free()
+		return
 		
 	if area.name == "Boundaries":
 		queue_free()
+		return
