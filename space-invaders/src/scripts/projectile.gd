@@ -26,7 +26,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var up_direction: Vector2 = Vector2(0, -1).rotated(rotation)
 	position = position + (Vector2(0, velocity) * delta * up_direction)
-	
 
 func _on_area_entered(area:Area2D) -> void:
 	checking_area = true

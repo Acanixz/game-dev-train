@@ -43,43 +43,6 @@ func _ready() -> void:
 			invader.position = Vector2(spacing.x * column - (spacing.x * troop_size.x/2), spacing.y * -row)
 			call_deferred("add_child", invader)
 			invaders[column].append(invader)
-			
-## Move tick
-func _on_tick_timeout() -> void:
-	# Stop all timers if troop is dead
-	if get_completion_rate() == 1:
-		$Tick.stop()
-		$ShootTimer.stop()
-		return
-		
-	# Play random tick sound
-	var tick_sounds: Array[AudioStreamPlayer] = [$Tick1, $Tick2]
-	G.random_pitch_and_play(tick_sounds[randi() % 2])
-	
-	# Move all troops individually and animate them
-	for column in range(troop_size.x):
-		for row in range(troop_size.y):
-			if is_instance_valid(invaders[column][row]):
-				var invader: Invader = invaders[column][row]
-				var sprite: AnimatedSprite2D = invader.get_node("Sprite")
-				sprite.frame = 1 if sprite.frame == 0 else 0
-				invader.global_translate(move_direction)
-		
-	# Move down if reached horizontal boundaries
-	if (move_direction.x > 0 and get_corner_position(true) >= bounds[1]) or (move_direction.x < 0 and get_corner_position(false) <= bounds[0]):
-		move_direction = Vector2(0, spacing.y)
-		return
-	
-	# Move in opposite horizontal direction if moving down
-	if (move_direction.y > 0):
-		moved_down.emit()
-		move_direction = previous_move_direction * -1
-		return
-
-## Shoot tick
-func _on_shoot_timer_timeout() -> void:
-	if get_completion_rate() == 1: return
-	choose_and_shoot()
 	
 ## Returns all columns that have at least one alien alive
 func get_alive_columns() -> Array[int]:
@@ -150,3 +113,40 @@ func choose_and_shoot() -> void:
 	
 	if not is_instance_valid(bottom_alien): return
 	bottom_alien.shoot()
+
+## Move tick
+func _on_tick_timeout() -> void:
+	# Stop all timers if troop is dead
+	if get_completion_rate() == 1:
+		$Tick.stop()
+		$ShootTimer.stop()
+		return
+
+	# Play random tick sound
+	var tick_sounds: Array[AudioStreamPlayer] = [$Tick1, $Tick2]
+	G.random_pitch_and_play(tick_sounds[randi() % 2])
+
+	# Move all troops individually and animate them
+	for column in range(troop_size.x):
+		for row in range(troop_size.y):
+			if is_instance_valid(invaders[column][row]):
+				var invader: Invader = invaders[column][row]
+				var sprite: AnimatedSprite2D = invader.get_node("Sprite")
+				sprite.frame = 1 if sprite.frame == 0 else 0
+				invader.global_translate(move_direction)
+
+	# Move down if reached horizontal boundaries
+	if (move_direction.x > 0 and get_corner_position(true) >= bounds[1]) or (move_direction.x < 0 and get_corner_position(false) <= bounds[0]):
+		move_direction = Vector2(0, spacing.y)
+		return
+
+	# Move in opposite horizontal direction if moving down
+	if (move_direction.y > 0):
+		moved_down.emit()
+		move_direction = previous_move_direction * -1
+		return
+
+## Shoot tick
+func _on_shoot_timer_timeout() -> void:
+	if get_completion_rate() == 1: return
+	choose_and_shoot()
