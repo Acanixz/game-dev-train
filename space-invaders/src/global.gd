@@ -59,6 +59,7 @@ func store_score(username: String) -> void:
 		
 	reset_score()
 
+## Adds score to the current run
 func add_score(increment) -> void:
 	current_score += increment
 

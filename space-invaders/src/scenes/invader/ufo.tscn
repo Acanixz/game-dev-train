@@ -10,6 +10,7 @@ size = Vector2(16, 7)
 [node name="UFO" instance=ExtResource("1_hbgxy")]
 modulate = Color(1, 0, 0, 1)
 script = ExtResource("2_cts4o")
+score = 200
 
 [node name="Sprite" parent="." index="0"]
 autoplay = "UFO"
