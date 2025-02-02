@@ -7,6 +7,7 @@ const LARGE_INVADER: PackedScene = preload("res://scenes/invader/large_invader.t
 
 signal moved_down
 signal invader_died
+signal troop_died
 
 @export_category("Troop Properties")
 @export var troop_size: Vector2i = Vector2i(11, 5)
@@ -117,6 +118,7 @@ func choose_and_shoot() -> void:
 func _on_tick_timeout() -> void:
 	# Stop all timers if troop is dead
 	if get_completion_rate() == 1:
+		troop_died.emit()
 		$Tick.stop()
 		$ShootTimer.stop()
 		return

@@ -19,6 +19,7 @@ func level_ready():
 	troop.position = Vector2(0, -128 + clamp(16 * (difficulty-1), 0, 32))
 	troop.troop_size = Vector2(8 + clamp(difficulty / 2.0, 0, 5), 5 + clamp(difficulty / 5.0, 0, 2))
 	troop.moved_down.connect(_on_troop_moved_down)
+	troop.troop_died.connect(_on_troop_died)
 	add_child(troop)
 	
 	print("Level loaded | Difficulty: %s" % difficulty)
@@ -39,6 +40,10 @@ func _on_troop_moved_down() -> void:
 	if $Troop.get_bottom_position() >= $Player.global_position.y - $Troop.spacing.y:
 		$Player.lives = 1
 		$Player.died.emit()
+		
+func _on_troop_died() -> void:
+	await get_tree().create_timer(1).timeout
+	G.load_level(difficulty + 1)
 
 ## Spawns a new UFO
 func _on_ufo_timer_timeout() -> void:
