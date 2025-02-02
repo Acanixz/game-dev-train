@@ -47,7 +47,6 @@ func _on_died() -> void:
 	
 	if lives > 0:
 		# Stay dead for a while, then resume game
-		# TODO: Clear projectiles and UFO
 		await get_tree().create_timer(3).timeout
 		
 		$Fire.restart()

@@ -1,8 +1,26 @@
 class_name Level
 extends Node2D
 
+const TROOP: PackedScene = preload("res://scenes/invader/troop/troop.tscn")
+
+## Level difficulty, cannot go lower than 1
+@export var difficulty: int = 1:
+	set(value):
+		if value < 1: return
+		difficulty = value
+
 var ufo_resource: PackedScene = load("res://scenes/invader/ufo.tscn")
 var ufo_direction: int = 1
+
+## Triggered by global.gd when Level can start using difficulty scaling to 
+## finish loading the assets
+func level_ready():
+	var troop: Troop = TROOP.instantiate()
+	troop.position = Vector2(0, -128 + clamp(16 * (difficulty-1), 0, 32))
+	troop.troop_size = Vector2(8 + clamp(difficulty / 2.0, 0, 5), 5 + clamp(difficulty / 5.0, 0, 2))
+	add_child(troop)
+	
+	print("Level loaded | Difficulty: %s" % difficulty)
 
 ## Clears all projectiles on screen
 func clear_projectiles() -> void:
@@ -26,8 +44,7 @@ func _on_ufo_timer_timeout() -> void:
 	var ufo: Invader = ufo_resource.instantiate()
 	ufo.global_position = Vector2(-get_viewport_rect().size.x/2 * ufo_direction, (-get_viewport_rect().size.y * .95) + 60)
 	
-	## TODO: Scale UFO velocity with difficulty
-	ufo.velocity = ufo.BASE_VELOCITY + (10 * 0)
+	ufo.velocity = ufo.BASE_VELOCITY + clamp(10 * difficulty, 10, 50)
 	ufo.direction = ufo_direction
 	
 	# Add UFO to level and invert direction for the next one

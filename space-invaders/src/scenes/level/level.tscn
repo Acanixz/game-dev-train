@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=5 format=3 uid="uid://l4c8q6yky8nw"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ryje5"]
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
-[ext_resource type="PackedScene" uid="uid://bt6reddjqvw3y" path="res://scenes/invader/troop/troop.tscn" id="2_85u8v"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sgtm0"]
 normal = Vector2(1, 0)
@@ -20,9 +19,6 @@ position = Vector2(0, -150)
 
 [node name="Player" parent="." instance=ExtResource("1_yceuj")]
 
-[node name="Troop" parent="." instance=ExtResource("2_85u8v")]
-position = Vector2(0, -128)
-
 [node name="UFOTimer" type="Timer" parent="."]
 wait_time = 30.0
 autostart = true
@@ -38,5 +34,4 @@ position = Vector2(320, -150)
 shape = SubResource("WorldBoundaryShape2D_mgxp1")
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
-[connection signal="moved_down" from="Troop" to="." method="_on_troop_moved_down"]
 [connection signal="timeout" from="UFOTimer" to="." method="_on_ufo_timer_timeout"]

@@ -15,6 +15,10 @@ func _ready() -> void:
 	
 	load_game()
 	
+	# TEMPORARY, REMOVE AFTER "NEW GAME" BUTTON IS READY 
+	await get_tree().create_timer(1).timeout
+	load_level(99)
+	
 ## Auto-save
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -30,6 +34,24 @@ func _input(event: InputEvent) -> void:
 func random_pitch_and_play(sound: AudioStreamPlayer, base_pitch: float = 1):
 	sound.pitch_scale = base_pitch + (randf_range(-0.05, 0.05))
 	sound.play()
+	
+## Loads a level at a specific difficulty
+func load_level(difficulty: int = 1):
+	if difficulty < 1: return
+	
+	# Load level scene
+	var err: int = get_tree().change_scene_to_file("res://scenes/level/level.tscn")
+	if not err:
+		# Wait for Level node
+		await get_tree().create_timer(.5).timeout
+		var level: Level = get_node("/root/Level")
+		while not is_instance_valid(level):
+			level = get_node("/root/Level")
+			await get_tree().create_timer(.1).timeout
+		
+		# Set values and trigger level_ready
+		level.difficulty = difficulty
+		level.level_ready()
 	
 ## Resets the current score
 func reset_score() -> void:
