@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bt6reddjqvw3y"]
 
-[ext_resource type="Script" path="res://scenes/invader/troop/troop.gd" id="1_5ho6e"]
+[ext_resource type="Script" path="res://scripts/troop.gd" id="1_5ho6e"]
 [ext_resource type="AudioStream" uid="uid://cky71gmerfibq" path="res://assets/sounds/tick-1.wav" id="2_g32t5"]
 [ext_resource type="AudioStream" uid="uid://52bwp67cw46m" path="res://assets/sounds/tick-2.wav" id="3_1628c"]
 

@@ -18,6 +18,7 @@ func level_ready():
 	var troop: Troop = TROOP.instantiate()
 	troop.position = Vector2(0, -128 + clamp(16 * (difficulty-1), 0, 32))
 	troop.troop_size = Vector2(8 + clamp(difficulty / 2.0, 0, 5), 5 + clamp(difficulty / 5.0, 0, 2))
+	troop.moved_down.connect(_on_troop_moved_down)
 	add_child(troop)
 	
 	print("Level loaded | Difficulty: %s" % difficulty)

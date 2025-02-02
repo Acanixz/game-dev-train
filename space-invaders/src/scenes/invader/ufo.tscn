@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cic2qinlwb3wo"]
 
 [ext_resource type="PackedScene" uid="uid://de5yac2pw5o6n" path="res://scenes/invader/invader.tscn" id="1_hbgxy"]
-[ext_resource type="Script" path="res://scenes/invader/ufo.gd" id="2_cts4o"]
+[ext_resource type="Script" path="res://scripts/ufo.gd" id="2_cts4o"]
 [ext_resource type="AudioStream" uid="uid://dnngs1luqloft" path="res://assets/sounds/UFO.wav" id="3_c46ny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bc12"]

@@ -5,7 +5,6 @@ const SMALL_INVADER: PackedScene = preload("res://scenes/invader/small_invader.t
 const MEDIUM_INVADER: PackedScene = preload("res://scenes/invader/medium_invader.tscn")
 const LARGE_INVADER: PackedScene = preload("res://scenes/invader/large_invader.tscn")
 
-
 signal moved_down
 signal invader_died
 
