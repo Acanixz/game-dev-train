@@ -32,6 +32,13 @@ window/size/mode=2
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[gui]
+
+theme/custom_font="res://assets/fonts/Jersey10/Jersey10-Regular.ttf"
+theme/default_font_hinting=2
+theme/default_font_subpixel_positioning=0
+theme/default_font_multichannel_signed_distance_field=true
+
 [input]
 
 fullscreen_toggle={
