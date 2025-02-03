@@ -70,6 +70,9 @@ func _on_ufo_timer_timeout() -> void:
 func _on_player_died() -> void:
 	clear_projectiles()
 	clear_special_aliens()
+	if $Player.lives == 0:
+		%GameOverUI.triggered.emit()
+		%GameOverUI.visible = true
 	
 func _on_player_life_changed(value: int) -> void:
 	var i: int = 0

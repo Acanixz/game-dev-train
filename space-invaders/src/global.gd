@@ -34,6 +34,10 @@ func random_pitch_and_play(sound: AudioStreamPlayer, base_pitch: float = 1):
 	sound.pitch_scale = base_pitch + (randf_range(-0.05, 0.05))
 	sound.play()
 	
+## Loads the main menu
+func load_menu():
+	get_tree().change_scene_to_file("res://scenes/main/main.tscn")
+	
 ## Loads a level at a specific difficulty
 func load_level(difficulty: int = 1):
 	if difficulty < 1: return

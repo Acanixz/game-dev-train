@@ -46,3 +46,4 @@ Button/styles/focus = SubResource("StyleBoxFlat_q4hsh")
 Button/styles/hover = SubResource("StyleBoxFlat_pg03j")
 Button/styles/normal = ExtResource("1_lnf0s")
 Button/styles/pressed = SubResource("StyleBoxFlat_ved4t")
+Label/font_sizes/font_size = 40

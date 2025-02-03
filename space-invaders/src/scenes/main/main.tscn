@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://boyb402pyiow8"]
+[gd_scene load_steps=24 format=3 uid="uid://boyb402pyiow8"]
 
 [ext_resource type="Script" path="res://scripts/play_btn.gd" id="1_vsdoc"]
 [ext_resource type="Script" path="res://scripts/ui_btn.gd" id="2_3jfcg"]
 [ext_resource type="Texture2D" uid="uid://c1tndmo2tdyew" path="res://assets/images/kofi.png" id="2_mek5s"]
+[ext_resource type="LabelSettings" uid="uid://bb1olbvp40feh" path="res://assets/resources/tiny_label_settings.tres" id="3_8nae5"]
 [ext_resource type="Script" path="res://scripts/redirect_button.gd" id="3_65prb"]
 [ext_resource type="Texture2D" uid="uid://bhfqot0kmspu7" path="res://assets/images/player.png" id="3_et7d2"]
 [ext_resource type="Texture2D" uid="uid://de5pw245lbwvd" path="res://assets/images/projectile.png" id="4_l7xiq"]
@@ -232,7 +233,7 @@ grow_horizontal = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(63, 0)
 text = "CONTROLS"
-label_settings = SubResource("LabelSettings_oi23g")
+label_settings = ExtResource("3_8nae5")
 horizontal_alignment = 1
 
 [node name="MenuBtn" type="Button" parent="Controls" node_paths=PackedStringArray("off_screen", "on_screen")]
@@ -278,6 +279,7 @@ Shoot Laser = Space
 
 Every 1500 points = 1UP
 Destroy all enemies and don't let them get near you"
+label_settings = ExtResource("3_8nae5")
 horizontal_alignment = 1
 
 [node name="Tank1" type="TextureRect" parent="Controls"]
@@ -384,7 +386,7 @@ grow_horizontal = 2
 scale = Vector2(2, 2)
 pivot_offset = Vector2(63, 0)
 text = "CREDITS"
-label_settings = SubResource("LabelSettings_oi23g")
+label_settings = ExtResource("3_8nae5")
 horizontal_alignment = 1
 
 [node name="MenuBtn" type="Button" parent="Credits" node_paths=PackedStringArray("off_screen", "on_screen")]
@@ -426,6 +428,7 @@ Created using:
 
 
 Support the game:"
+label_settings = ExtResource("3_8nae5")
 horizontal_alignment = 1
 
 [node name="Tools" type="HBoxContainer" parent="Credits"]

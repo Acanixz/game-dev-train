@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://l4c8q6yky8nw"]
+[gd_scene load_steps=7 format=3 uid="uid://l4c8q6yky8nw"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_ryje5"]
 [ext_resource type="PackedScene" uid="uid://rpo4uv115u17" path="res://scenes/player/player.tscn" id="1_yceuj"]
+[ext_resource type="PackedScene" uid="uid://k5qrelyfent1" path="res://scenes/game_over_ui/game_over_ui.tscn" id="3_22vur"]
 [ext_resource type="PackedScene" uid="uid://6tkproljaxq7" path="res://scenes/hud/hud.tscn" id="3_rui16"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sgtm0"]
@@ -22,6 +23,10 @@ offset_left = -320.0
 offset_top = -180.0
 offset_right = 320.0
 offset_bottom = 180.0
+
+[node name="GameOverUI" parent="Camera2D" instance=ExtResource("3_22vur")]
+unique_name_in_owner = true
+visible = false
 
 [node name="Projectiles" type="Node2D" parent="."]
 
