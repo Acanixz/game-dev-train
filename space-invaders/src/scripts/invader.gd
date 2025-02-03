@@ -9,6 +9,12 @@ signal died
 ## Score given when the player destroys the alien
 @export var score: int = 0
 
+## TODO: Remove keybinds for this action before release
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("DEBUG_BUTTON"):
+		died.emit()
+		get_viewport().set_input_as_handled()
+
 ## Shoots an enemy projectile downwards
 func shoot():
 	var projectile: EnemyProjectile = ENEMY_PROJECTILE.instantiate()

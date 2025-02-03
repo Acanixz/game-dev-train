@@ -4,6 +4,7 @@ extends AnimatableBody2D
 const PLAYER_PROJECTILE: PackedScene = preload("res://scenes/projectile/final/player_projectile.tscn")
 
 signal died
+signal life_changed(value: int)
 
 @export_category("Tank Properties")
 @export var base_move_speed: float = 2.5
@@ -12,6 +13,7 @@ signal died
 	set(value):
 		if value > 5: value = 5
 		lives = value
+		life_changed.emit(lives)
 		print("LIVES: %s" % lives)
 
 var move_speed: float = base_move_speed

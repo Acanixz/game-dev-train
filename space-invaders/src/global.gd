@@ -1,6 +1,9 @@
 extends Node
 
+signal score_updated(value)
+
 var current_score: int = 0
+var next_1UP: int = 1500
 var high_score_structure: Dictionary = {
 		"score": 0,
 		"name": "???",
@@ -34,24 +37,34 @@ func random_pitch_and_play(sound: AudioStreamPlayer, base_pitch: float = 1):
 ## Loads a level at a specific difficulty
 func load_level(difficulty: int = 1):
 	if difficulty < 1: return
+	var player_lives: int = 0
 	
+	# Get player lives is level already exists
+	var existing_level: Level = get_node_or_null("/root/Level")
+	if existing_level:
+		player_lives = existing_level.get_node("Player").lives
+
 	# Load level scene
 	var err: int = get_tree().change_scene_to_file("res://scenes/level/level.tscn")
 	if not err:
 		# Wait for Level node
 		await get_tree().create_timer(.5).timeout
-		var level: Level = get_node("/root/Level")
+		var level: Level = get_node_or_null("/root/Level")
 		while not is_instance_valid(level):
-			level = get_node("/root/Level")
+			level = get_node_or_null("/root/Level")
 			await get_tree().create_timer(.1).timeout
 		
 		# Set values and trigger level_ready
+		if player_lives:
+			level.get_node("Player").lives = player_lives
 		level.difficulty = difficulty
 		level.level_ready()
 	
 ## Resets the current score
 func reset_score() -> void:
 	current_score = 0
+	next_1UP = 1500
+	score_updated.emit(0)
 	
 ## Checks for high-score, then stores if it is
 func store_score(username: String) -> void:
@@ -80,7 +93,9 @@ func store_score(username: String) -> void:
 ## Adds score to the current run
 func add_score(increment) -> void:
 	current_score += increment
-	if current_score % 1500 == 0:
+	score_updated.emit(current_score)
+	if current_score >= next_1UP:
+		next_1UP += 1500
 		print("1 UP!")
 		var player: Player = get_node("/root/Level/Player")
 		if not is_instance_valid(player): return
