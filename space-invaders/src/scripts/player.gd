@@ -8,7 +8,11 @@ signal died
 @export_category("Tank Properties")
 @export var base_move_speed: float = 2.5
 @export var weapon_cooldown: float = 1
-@export var lives: int = 3
+@export var lives: int = 3:
+	set(value):
+		if value > 5: value = 5
+		lives = value
+		print("LIVES: %s" % lives)
 
 var move_speed: float = base_move_speed
 var is_weapon_cooldown: bool = false

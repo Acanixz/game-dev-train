@@ -84,6 +84,12 @@ func store_score(username: String) -> void:
 ## Adds score to the current run
 func add_score(increment) -> void:
 	current_score += increment
+	if current_score % 1500 == 0:
+		print("1 UP!")
+		var player: Player = get_node("/root/Level/Player")
+		if not is_instance_valid(player): return
+		player.lives += 1
+		G.random_pitch_and_play(player.get_node("OneUp"))
 
 func save_game() -> void:
 	print("Saving game..")
