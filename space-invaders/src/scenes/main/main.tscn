@@ -75,12 +75,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 25.625
-offset_right = 20.0
-offset_bottom = 65.625
+offset_left = -100.0
+offset_top = -24.375
+offset_right = 100.0
+offset_bottom = 159.625
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(100, 92)
+theme_override_constants/separation = 16
 
 [node name="PlayBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -89,6 +92,7 @@ text = "Play"
 [node name="ControlsBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "How to play"
+autowrap_mode = 3
 
 [node name="CreditsBtn" type="Button" parent="VBoxContainer"]
 layout_mode = 2

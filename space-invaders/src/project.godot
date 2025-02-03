@@ -34,6 +34,7 @@ window/stretch/scale_mode="integer"
 
 [gui]
 
+theme/custom="res://assets/resources/theme.tres"
 theme/custom_font="res://assets/fonts/Jersey10/Jersey10-Regular.ttf"
 theme/default_font_hinting=2
 theme/default_font_subpixel_positioning=0
