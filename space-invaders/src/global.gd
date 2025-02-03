@@ -15,10 +15,6 @@ func _ready() -> void:
 	
 	load_game()
 	
-	# TEMPORARY, REMOVE AFTER "NEW GAME" BUTTON IS READY 
-	await get_tree().create_timer(1).timeout
-	load_level(1)
-	
 ## Auto-save
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

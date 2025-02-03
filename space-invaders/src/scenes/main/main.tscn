@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://boyb402pyiow8"]
+[gd_scene load_steps=18 format=3 uid="uid://boyb402pyiow8"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_oi23g"]
-font_size = 40
-font_color = Color(1, 1, 0, 1)
-shadow_color = Color(0.299547, 0.299547, 0.299547, 1)
+[ext_resource type="Script" path="res://scripts/play_btn.gd" id="1_vsdoc"]
+[ext_resource type="Script" path="res://scripts/ui_btn.gd" id="2_3jfcg"]
+[ext_resource type="Texture2D" uid="uid://c1tndmo2tdyew" path="res://assets/images/kofi.png" id="2_mek5s"]
+[ext_resource type="Script" path="res://scripts/redirect_button.gd" id="3_65prb"]
+[ext_resource type="Texture2D" uid="uid://bfamhmpbqr0ai" path="res://assets/images/GitHub.svg" id="4_v8kqs"]
+[ext_resource type="Texture2D" uid="uid://dtd5yatj42ej7" path="res://assets/images/Youtube.png" id="5_o13ut"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hlysl"]
 particles_animation = true
@@ -43,6 +45,11 @@ load_path = "res://.godot/imported/invader.png-264a0705eb2c64df013924f7bb279269.
 atlas = SubResource("CompressedTexture2D_phw4r")
 region = Rect2(0, 32, 32, 16)
 
+[sub_resource type="LabelSettings" id="LabelSettings_oi23g"]
+font_size = 40
+font_color = Color(1, 1, 0, 1)
+shadow_color = Color(0.299547, 0.299547, 0.299547, 1)
+
 [node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -52,53 +59,9 @@ offset_bottom = -11.25
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -63.0
-offset_right = 63.0
-offset_bottom = 91.0
-grow_horizontal = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(63, 0)
-text = "SPACE
-INVADERS"
-label_settings = SubResource("LabelSettings_oi23g")
-horizontal_alignment = 1
+[node name="Effects" type="Node2D" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -24.375
-offset_right = 100.0
-offset_bottom = 159.625
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(100, 92)
-theme_override_constants/separation = 16
-
-[node name="PlayBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Play"
-
-[node name="ControlsBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "How to play"
-autowrap_mode = 3
-
-[node name="CreditsBtn" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Credits"
-
-[node name="UFO" type="CPUParticles2D" parent="."]
+[node name="UFO" type="CPUParticles2D" parent="Effects"]
 z_index = -10
 material = SubResource("CanvasItemMaterial_hlysl")
 position = Vector2(-50, 20)
@@ -116,7 +79,7 @@ color = Color(1, 0, 0, 0.25098)
 anim_speed_min = 40.0
 anim_speed_max = 80.0
 
-[node name="Tiny" type="CPUParticles2D" parent="."]
+[node name="Tiny" type="CPUParticles2D" parent="Effects"]
 z_index = -10
 material = SubResource("CanvasItemMaterial_hlysl")
 position = Vector2(-50, 75)
@@ -136,7 +99,7 @@ color = Color(1, 1, 1, 0.25098)
 anim_speed_min = 40.0
 anim_speed_max = 80.0
 
-[node name="Medium" type="CPUParticles2D" parent="."]
+[node name="Medium" type="CPUParticles2D" parent="Effects"]
 z_index = -10
 material = SubResource("CanvasItemMaterial_hlysl")
 position = Vector2(-50, 200)
@@ -156,7 +119,7 @@ color = Color(1, 1, 1, 0.25098)
 anim_speed_min = 40.0
 anim_speed_max = 80.0
 
-[node name="Large" type="CPUParticles2D" parent="."]
+[node name="Large" type="CPUParticles2D" parent="Effects"]
 z_index = -10
 material = SubResource("CanvasItemMaterial_hlysl")
 position = Vector2(-50, 300)
@@ -175,3 +138,231 @@ scale_amount_curve = SubResource("Curve_3bv32")
 color = Color(1, 1, 1, 0.25098)
 anim_speed_min = 40.0
 anim_speed_max = 80.0
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_right = 63.0
+offset_bottom = 91.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(63, 0)
+text = "SPACE
+INVADERS"
+label_settings = SubResource("LabelSettings_oi23g")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -24.375
+offset_right = 100.0
+offset_bottom = 159.625
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(100, 92)
+theme_override_constants/separation = 16
+
+[node name="PlayBtn" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+script = ExtResource("1_vsdoc")
+
+[node name="ControlsBtn" type="Button" parent="Menu/VBoxContainer" node_paths=PackedStringArray("off_screen", "on_screen")]
+layout_mode = 2
+text = "How to play"
+autowrap_mode = 3
+script = ExtResource("2_3jfcg")
+off_screen = NodePath("../..")
+on_screen = NodePath("../../../Controls")
+
+[node name="CreditsBtn" type="Button" parent="Menu/VBoxContainer" node_paths=PackedStringArray("off_screen", "on_screen")]
+layout_mode = 2
+text = "Credits"
+script = ExtResource("2_3jfcg")
+off_screen = NodePath("../..")
+on_screen = NodePath("../../../Credits")
+
+[node name="Controls" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Controls"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_right = 63.0
+offset_bottom = 45.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(63, 0)
+text = "CONTROLS"
+label_settings = SubResource("LabelSettings_oi23g")
+horizontal_alignment = 1
+
+[node name="Credits" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Credits"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_right = 63.0
+offset_bottom = 45.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(63, 0)
+text = "CREDITS"
+label_settings = SubResource("LabelSettings_oi23g")
+horizontal_alignment = 1
+
+[node name="MenuBtn" type="Button" parent="Credits" node_paths=PackedStringArray("off_screen", "on_screen")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.0
+offset_top = 60.0
+offset_right = 70.0
+offset_bottom = 104.0
+grow_horizontal = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(70, 22)
+text = "  Return  "
+script = ExtResource("2_3jfcg")
+off_screen = NodePath("..")
+on_screen = NodePath("../../Menu")
+
+[node name="Description" type="Label" parent="Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -77.375
+offset_right = 124.0
+offset_bottom = 108.625
+grow_horizontal = 2
+grow_vertical = 2
+text = "This game was created as part of the
+\"Recreating old games in Godot\"
+series
+
+Created using:
+
+
+
+Support the game:"
+horizontal_alignment = 1
+
+[node name="Tools" type="HBoxContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = 45.625
+offset_right = 133.0
+offset_bottom = 85.625
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Godot" type="LinkButton" parent="Credits/Tools"]
+layout_mode = 2
+text = "Godot Engine"
+underline = 1
+uri = "https://godotengine.org/"
+
+[node name="Aseprite" type="LinkButton" parent="Credits/Tools"]
+layout_mode = 2
+text = "Aseprite"
+underline = 1
+uri = "https://www.aseprite.org/"
+
+[node name="FamiTracker" type="LinkButton" parent="Credits/Tools"]
+layout_mode = 2
+text = "FamiTracker"
+underline = 1
+uri = "http://famitracker.com/"
+
+[node name="Redirects" type="HBoxContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -270.0
+offset_top = -44.0
+offset_right = 270.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(270, 44)
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Youtube" type="Button" parent="Credits/Redirects"]
+layout_mode = 2
+text = "  Youtube  "
+icon = ExtResource("5_o13ut")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+script = ExtResource("3_65prb")
+
+[node name="Github" type="Button" parent="Credits/Redirects"]
+layout_mode = 2
+text = "  Github  "
+icon = ExtResource("4_v8kqs")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+script = ExtResource("3_65prb")
+
+[node name="Kofi" type="Button" parent="Credits/Redirects"]
+layout_mode = 2
+text = "  Ko-fi  "
+icon = ExtResource("2_mek5s")
+icon_alignment = 1
+vertical_icon_alignment = 2
+expand_icon = true
+script = ExtResource("3_65prb")
