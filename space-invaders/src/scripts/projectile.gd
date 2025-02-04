@@ -3,6 +3,12 @@ extends Area2D
 
 const POP_EFFECT: PackedScene = preload("res://scenes/effects/pop_effect.tscn")
 
+const HITSCANS: Array[PackedScene] = [
+	preload("res://scenes/barricade_hitscan/variants/laser_explosion.tscn"),
+	preload("res://scenes/barricade_hitscan/variants/rocket_explosion.tscn"),
+	preload("res://scenes/barricade_hitscan/variants/lightning_explosion.tscn")
+]
+
 ## Type of projectile, each one has a different explosion when hitting a barricade
 enum ProjectileType {
 	LASER,
@@ -53,7 +59,12 @@ func _on_area_entered(area:Area2D) -> void:
 		return
 	
 func _on_body_entered(body: Node2D) -> void:
+	if is_queued_for_deletion(): return
+	
 	if body.name == "Barricade":
+		var hitscan: Node = HITSCANS[projectile_type].instantiate()
+		hitscan.position = position
+		get_parent().call_deferred("add_child", hitscan)
 		delete_projectile(false)
 
 func _on_visibility_screen_exited() -> void:

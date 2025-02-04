@@ -46,7 +46,7 @@ func clear_special_aliens() -> void:
 
 ## Player instantly game overs if troops get too close
 func _on_troop_moved_down() -> void:
-	if $Troop.get_bottom_position() >= $Player.global_position.y - $Troop.spacing.y:
+	if $Troop.get_bottom_position() >= $Player.global_position.y - 32 - $Troop.spacing.y:
 		$Player.lives = 1
 		$Player.died.emit()
 		

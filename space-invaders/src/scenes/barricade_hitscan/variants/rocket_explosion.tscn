@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://rfw6dlh5glc"]
+
+[ext_resource type="Script" path="res://scripts/temp_node.gd" id="1_8ihve"]
+[ext_resource type="PackedScene" uid="uid://bfibuc3yrs6og" path="res://scenes/barricade_hitscan/barricade_hitscan.tscn" id="2_rpdu2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3080q"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjim1"]
+size = Vector2(14, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13o7j"]
+size = Vector2(16, 12)
+
+[node name="RocketExplosion" type="Node2D"]
+script = ExtResource("1_8ihve")
+
+[node name="BarricadeHitscan" parent="." instance=ExtResource("2_rpdu2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarricadeHitscan"]
+shape = SubResource("RectangleShape2D_3080q")
+
+[node name="BarricadeHitscan2" parent="." instance=ExtResource("2_rpdu2")]
+destroy_chance = 90
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarricadeHitscan2"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_gjim1")
+
+[node name="BarricadeHitscan3" parent="." instance=ExtResource("2_rpdu2")]
+destroy_chance = 70
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarricadeHitscan3"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_13o7j")
