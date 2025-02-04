@@ -60,5 +60,3 @@ func _on_died() -> void:
 		$Sprite.animation = 'alive'
 		
 		get_tree().paused = false
-	else:
-		pass # TODO: Implement game over behavior
