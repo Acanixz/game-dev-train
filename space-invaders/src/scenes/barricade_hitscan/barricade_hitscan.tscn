@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfibuc3yrs6og"]
+
+[ext_resource type="Script" path="res://scripts/barricade_hitscan.gd" id="1_koyhl"]
+
+[node name="BarricadeHitscan" type="Area2D"]
+script = ExtResource("1_koyhl")
+destroy_chance = 100

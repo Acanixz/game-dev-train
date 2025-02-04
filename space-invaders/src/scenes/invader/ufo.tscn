@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cic2qinlwb3wo"]
+
+[ext_resource type="PackedScene" uid="uid://de5yac2pw5o6n" path="res://scenes/invader/invader.tscn" id="1_hbgxy"]
+[ext_resource type="Script" path="res://scripts/ufo.gd" id="2_cts4o"]
+[ext_resource type="AudioStream" uid="uid://dnngs1luqloft" path="res://assets/sounds/UFO.wav" id="3_c46ny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bc12"]
+size = Vector2(16, 7)
+
+[node name="UFO" instance=ExtResource("1_hbgxy")]
+modulate = Color(1, 0, 0, 1)
+script = ExtResource("2_cts4o")
+score = 200
+
+[node name="Sprite" parent="." index="0"]
+autoplay = "UFO"
+frame_progress = 0.867365
+
+[node name="CollisionShape" parent="." index="1"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_1bc12")
+
+[node name="AlertSound" type="AudioStreamPlayer" parent="." index="2"]
+stream = ExtResource("3_c46ny")
+volume_db = -10.0
+autoplay = true
+
+[node name="Visibility" type="VisibleOnScreenNotifier2D" parent="." index="3"]
+
+[connection signal="finished" from="AlertSound" to="." method="_on_alert_sound_finished"]
+[connection signal="screen_exited" from="Visibility" to="." method="_on_visibility_screen_exited"]

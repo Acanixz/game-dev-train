@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://de5yac2pw5o6n"]
+
+[ext_resource type="Script" path="res://scripts/invader.gd" id="1_7afo3"]
+[ext_resource type="Texture2D" uid="uid://ivdd8sntyr8j" path="res://assets/images/invader.png" id="1_fvlhl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53d4a"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc1va"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg62a"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e7bh"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itnic"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkchm"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oks83"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b505j"]
+atlas = ExtResource("1_fvlhl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7w3fa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53d4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc1va")
+}],
+"loop": true,
+"name": &"UFO",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg62a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e7bh")
+}],
+"loop": true,
+"name": &"large",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itnic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkchm")
+}],
+"loop": true,
+"name": &"medium",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oks83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b505j")
+}],
+"loop": true,
+"name": &"small",
+"speed": 5.0
+}]
+
+[node name="Invader" type="AnimatableBody2D"]
+script = ExtResource("1_7afo3")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7w3fa")
+animation = &"UFO"
+frame = 1
+frame_progress = 0.814975
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+
+[connection signal="died" from="." to="." method="_on_died"]

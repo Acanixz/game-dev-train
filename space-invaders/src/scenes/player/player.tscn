@@ -1,0 +1,117 @@
+[gd_scene load_steps=14 format=3 uid="uid://rpo4uv115u17"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_7vlyv"]
+[ext_resource type="Texture2D" uid="uid://bhfqot0kmspu7" path="res://assets/images/player.png" id="2_a40wr"]
+[ext_resource type="AudioStream" uid="uid://p33oc0e21bym" path="res://assets/sounds/player-died.wav" id="3_lexyx"]
+[ext_resource type="AudioStream" uid="uid://bb87yxgj6tcv5" path="res://assets/sounds/player-shot.wav" id="4_35lvc"]
+[ext_resource type="AudioStream" uid="uid://dk6w5y62uley8" path="res://assets/sounds/1_up.wav" id="5_8ocv6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4yeo"]
+atlas = ExtResource("2_a40wr")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibbd4"]
+atlas = ExtResource("2_a40wr")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ray0t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4yeo")
+}],
+"loop": true,
+"name": &"alive",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibbd4")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6dij"]
+size = Vector2(12, 6)
+
+[sub_resource type="Curve" id="Curve_jtk70"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0725191, 0.456604), -7.06199, -7.06199, 0, 0, Vector2(0.332061, 1), 0.0, 0.0, 0, 0, Vector2(0.774809, 0.818868), 2.20999, 2.20999, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_2dldc"]
+offsets = PackedFloat32Array(0, 0.241071, 0.491071, 0.866071, 1)
+colors = PackedColorArray(0.470588, 0, 0, 1, 0.854902, 0, 0, 1, 1, 0.4, 0, 1, 1, 0.862745, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_64411"]
+max_value = 4.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.248092, 1.70566), 0.0, 0.0, 0, 0, Vector2(0.446565, 2.85283), 0.0, 0.0, 0, 0, Vector2(0.706107, 0.498113), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_s2gtq"]
+colors = PackedColorArray(0, 0, 0, 1, 0.440336, 0.440336, 0.440336, 1)
+
+[node name="Player" type="AnimatableBody2D"]
+process_mode = 1
+sync_to_physics = false
+script = ExtResource("1_7vlyv")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+modulate = Color(0, 1, 0, 1)
+sprite_frames = SubResource("SpriteFrames_ray0t")
+animation = &"alive"
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_w6dij")
+
+[node name="Fire" type="CPUParticles2D" parent="."]
+process_mode = 2
+show_behind_parent = true
+position = Vector2(0, 6)
+emission_shape = 3
+emission_rect_extents = Vector2(5, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_jtk70")
+color_ramp = SubResource("Gradient_2dldc")
+
+[node name="Smoke" type="CPUParticles2D" parent="."]
+process_mode = 2
+show_behind_parent = true
+position = Vector2(0, 6)
+amount = 16
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(5, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_64411")
+color_ramp = SubResource("Gradient_s2gtq")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_lexyx")
+volume_db = -10.0
+
+[node name="WeaponSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_35lvc")
+volume_db = -10.0
+
+[node name="OneUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8ocv6")
+volume_db = -5.0
+
+[connection signal="died" from="." to="." method="_on_died"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cirbhfncb8c86"]
+
+[ext_resource type="Texture2D" uid="uid://bhfqot0kmspu7" path="res://assets/images/player.png" id="1_gr8y0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a57er"]
+atlas = ExtResource("1_gr8y0")
+region = Rect2(0, 0, 16, 0)
+
+[node name="LifeIcon" type="TextureRect"]
+modulate = Color(0, 1, 0, 1)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_a57er")
+expand_mode = 2

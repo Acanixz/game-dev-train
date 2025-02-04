@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt6reddjqvw3y"]
+
+[ext_resource type="Script" path="res://scripts/troop.gd" id="1_5ho6e"]
+[ext_resource type="AudioStream" uid="uid://cky71gmerfibq" path="res://assets/sounds/tick-1.wav" id="2_g32t5"]
+[ext_resource type="AudioStream" uid="uid://52bwp67cw46m" path="res://assets/sounds/tick-2.wav" id="3_1628c"]
+
+[node name="Troop" type="Node2D"]
+script = ExtResource("1_5ho6e")
+
+[node name="Tick" type="Timer" parent="."]
+autostart = true
+
+[node name="Tick1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_g32t5")
+volume_db = -15.0
+max_polyphony = 16
+
+[node name="Tick2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1628c")
+volume_db = -15.0
+max_polyphony = 16
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="invader_died" from="." to="." method="_on_invader_died"]
+[connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

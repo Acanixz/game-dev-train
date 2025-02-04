@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bibmb8x2f7vat"]
+
+[ext_resource type="FontFile" uid="uid://dju1dsxyaf8e1" path="res://assets/fonts/Jersey10/Jersey10-Regular.ttf" id="1_oi7rx"]
+
+[resource]
+base_font = ExtResource("1_oi7rx")
+spacing_glyph = 1

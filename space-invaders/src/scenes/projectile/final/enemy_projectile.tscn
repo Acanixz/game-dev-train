@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhgki5wdih1jb"]
+
+[ext_resource type="PackedScene" uid="uid://cnx8frdbga7d" path="res://scenes/projectile/projectile.tscn" id="1_5xyiu"]
+[ext_resource type="Script" path="res://scripts/enemy_projectile.gd" id="2_r8o0m"]
+
+[node name="EnemyProjectile" instance=ExtResource("1_5xyiu")]
+rotation = 3.14159
+script = ExtResource("2_r8o0m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

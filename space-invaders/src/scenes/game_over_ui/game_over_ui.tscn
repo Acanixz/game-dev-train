@@ -1,0 +1,166 @@
+[gd_scene load_steps=6 format=3 uid="uid://k5qrelyfent1"]
+
+[ext_resource type="Script" path="res://scripts/game_over_ui.gd" id="1_lxtk1"]
+
+[sub_resource type="GDScript" id="GDScript_f7tlm"]
+script/source = "extends Label
+
+func _on_game_over_ui_triggered() -> void:
+	text = \"Final score:\\n%s\" % G.current_score
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_6n3jb"]
+font_size = 20
+
+[sub_resource type="GDScript" id="GDScript_ue050"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	G.store_score(%HighScoreLine.text)
+	get_tree().paused = false
+	G.load_level()
+"
+
+[sub_resource type="GDScript" id="GDScript_x8ef5"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	G.store_score(%HighScoreLine.text)
+	get_tree().paused = false
+	G.load_menu()
+"
+
+[node name="GameOverUI" type="Control"]
+process_mode = 3
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lxtk1")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -105.0
+offset_right = 77.0
+offset_bottom = -61.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.5
+offset_top = -70.0
+offset_right = 86.5
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(86, 22)
+text = "Final score:
+0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_f7tlm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -114.0
+offset_right = 109.5
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.180392, 0.180392, 0.25098)
+
+[node name="HighScore" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -5.0
+offset_right = 70.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="HighScore"]
+layout_mode = 2
+text = "New high score!"
+label_settings = SubResource("LabelSettings_6n3jb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLine" type="LineEdit" parent="HighScore"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(1, 0.705882, 0, 1)
+theme_override_colors/font_color = Color(1, 0.747065, 0.815059, 1)
+placeholder_text = "TYPE YOUR INITIALS"
+alignment = 1
+max_length = 3
+
+[node name="PlayBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 45.0
+offset_right = 93.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(93, 22)
+text = "  Play Again  "
+script = SubResource("GDScript_ue050")
+
+[node name="MenuBtn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = 75.0
+offset_right = 135.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(135, 22)
+text = "  Return to menu  "
+script = SubResource("GDScript_x8ef5")
+
+[connection signal="triggered" from="." to="FinalScore" method="_on_game_over_ui_triggered"]
+[connection signal="pressed" from="PlayBtn" to="PlayBtn" method="_on_pressed"]
+[connection signal="pressed" from="MenuBtn" to="MenuBtn" method="_on_pressed"]
