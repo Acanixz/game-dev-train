@@ -490,6 +490,7 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 expand_icon = true
 script = ExtResource("3_65prb")
+target_url = "https://www.youtube.com/@Acanixz"
 
 [node name="Github" type="Button" parent="Credits/Redirects"]
 layout_mode = 2
@@ -499,6 +500,7 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 expand_icon = true
 script = ExtResource("3_65prb")
+target_url = "https://github.com/Acanixz/game-dev-train"
 
 [node name="Kofi" type="Button" parent="Credits/Redirects"]
 layout_mode = 2
@@ -508,3 +510,4 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 expand_icon = true
 script = ExtResource("3_65prb")
+target_url = "https://ko-fi.com/acanixz"
