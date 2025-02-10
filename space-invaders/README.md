@@ -4,10 +4,6 @@ This is a recreation of Space Invaders made in godot. There are numerous improve
 
 ![Image of the game](game.png)
 
-## Table of Contents
-- [Controls](#controls)
-- [How to Play](#how-to-play)
-
 ## Controls
 - A = Move left
 - D = Move right

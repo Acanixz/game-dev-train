@@ -4,13 +4,6 @@ This is a recreation of Snake made in Godot, the game improves on grid-based mov
 
 ![Image of the game](game.png)
 
-## Table of Contents
-- [Controls](#controls)
-- [Installation](#installation)
-- [How to Play](#how-to-play)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Controls
 - W = Move up
 - S = Move down
