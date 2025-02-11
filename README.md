@@ -8,6 +8,14 @@ This repository contains various projects created to enhance my game development
 
 *Currently, there isn't much content, but every journey starts with a first step.* ¯\\_(ツ)_/¯
 
+## Completed Games
+| Game | First Published |
+| --- | --- |
+| Space Invaders | Feb 04, 2025 |
+| Snake | Jan 23, 2025|
+| Breakout | Jan 08, 2025|
+| Pong | Dec 30, 2024 |
+
 ## Contributing
 
 Contributions are welcome! Please see the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to get started.
